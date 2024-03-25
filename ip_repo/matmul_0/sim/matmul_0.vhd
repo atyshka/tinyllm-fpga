@@ -47,7 +47,7 @@
 -- DO NOT MODIFY THIS FILE.
 
 -- IP VLNV: xilinx.com:user:matmul:1.0
--- IP Revision: 2
+-- IP Revision: 3
 
 LIBRARY ieee;
 USE ieee.std_logic_1164.ALL;
@@ -79,8 +79,8 @@ ENTITY matmul_0 IS
     s00_axis_aclk : IN STD_LOGIC;
     s00_axis_aresetn : IN STD_LOGIC;
     s00_axis_tready : OUT STD_LOGIC;
-    s00_axis_tdata : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
-    s00_axis_tstrb : IN STD_LOGIC_VECTOR(3 DOWNTO 0);
+    s00_axis_tdata : IN STD_LOGIC_VECTOR(7 DOWNTO 0);
+    s00_axis_tstrb : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
     s00_axis_tlast : IN STD_LOGIC;
     s00_axis_tvalid : IN STD_LOGIC;
     m00_axis_aclk : IN STD_LOGIC;
@@ -129,8 +129,8 @@ ARCHITECTURE matmul_0_arch OF matmul_0 IS
       s00_axis_aclk : IN STD_LOGIC;
       s00_axis_aresetn : IN STD_LOGIC;
       s00_axis_tready : OUT STD_LOGIC;
-      s00_axis_tdata : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
-      s00_axis_tstrb : IN STD_LOGIC_VECTOR(3 DOWNTO 0);
+      s00_axis_tdata : IN STD_LOGIC_VECTOR(7 DOWNTO 0);
+      s00_axis_tstrb : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
       s00_axis_tlast : IN STD_LOGIC;
       s00_axis_tvalid : IN STD_LOGIC;
       m00_axis_aclk : IN STD_LOGIC;
@@ -185,7 +185,7 @@ ARCHITECTURE matmul_0_arch OF matmul_0 IS
   ATTRIBUTE X_INTERFACE_INFO OF s00_axis_aresetn: SIGNAL IS "xilinx.com:signal:reset:1.0 S00_AXIS_RST RST";
   ATTRIBUTE X_INTERFACE_INFO OF s00_axis_tdata: SIGNAL IS "xilinx.com:interface:axis:1.0 S00_AXIS TDATA";
   ATTRIBUTE X_INTERFACE_INFO OF s00_axis_tlast: SIGNAL IS "xilinx.com:interface:axis:1.0 S00_AXIS TLAST";
-  ATTRIBUTE X_INTERFACE_PARAMETER OF s00_axis_tready: SIGNAL IS "XIL_INTERFACENAME S00_AXIS, WIZ_DATA_WIDTH 32, TDATA_NUM_BYTES 4, TDEST_WIDTH 0, TID_WIDTH 0, TUSER_WIDTH 0, HAS_TREADY 1, HAS_TSTRB 1, HAS_TKEEP 0, HAS_TLAST 1, FREQ_HZ 100000000, PHASE 0.0, LAYERED_METADATA undef, INSERT_VIP 0";
+  ATTRIBUTE X_INTERFACE_PARAMETER OF s00_axis_tready: SIGNAL IS "XIL_INTERFACENAME S00_AXIS, WIZ_DATA_WIDTH 32, TDATA_NUM_BYTES 1, TDEST_WIDTH 0, TID_WIDTH 0, TUSER_WIDTH 0, HAS_TREADY 1, HAS_TSTRB 1, HAS_TKEEP 0, HAS_TLAST 1, FREQ_HZ 100000000, PHASE 0.0, LAYERED_METADATA undef, INSERT_VIP 0";
   ATTRIBUTE X_INTERFACE_INFO OF s00_axis_tready: SIGNAL IS "xilinx.com:interface:axis:1.0 S00_AXIS TREADY";
   ATTRIBUTE X_INTERFACE_INFO OF s00_axis_tstrb: SIGNAL IS "xilinx.com:interface:axis:1.0 S00_AXIS TSTRB";
   ATTRIBUTE X_INTERFACE_INFO OF s00_axis_tvalid: SIGNAL IS "xilinx.com:interface:axis:1.0 S00_AXIS TVALID";
@@ -194,7 +194,7 @@ BEGIN
     GENERIC MAP (
       C_S00_AXI_DATA_WIDTH => 32,
       C_S00_AXI_ADDR_WIDTH => 5,
-      C_S00_AXIS_TDATA_WIDTH => 32,
+      C_S00_AXIS_TDATA_WIDTH => 8,
       C_M00_AXIS_TDATA_WIDTH => 32,
       C_M00_AXIS_START_COUNT => 32
     )

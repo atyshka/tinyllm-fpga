@@ -47,7 +47,7 @@
 // DO NOT MODIFY THIS FILE.
 
 // IP VLNV: xilinx.com:user:matmul:1.0
-// IP Revision: 2
+// IP Revision: 3
 
 // The following must be inserted into your Verilog file for this
 // core to be instantiated. Change the instance name and port connections
@@ -79,8 +79,8 @@ matmul_0 your_instance_name (
   .s00_axis_aclk(s00_axis_aclk),        // input wire s00_axis_aclk
   .s00_axis_aresetn(s00_axis_aresetn),  // input wire s00_axis_aresetn
   .s00_axis_tready(s00_axis_tready),    // output wire s00_axis_tready
-  .s00_axis_tdata(s00_axis_tdata),      // input wire [31 : 0] s00_axis_tdata
-  .s00_axis_tstrb(s00_axis_tstrb),      // input wire [3 : 0] s00_axis_tstrb
+  .s00_axis_tdata(s00_axis_tdata),      // input wire [7 : 0] s00_axis_tdata
+  .s00_axis_tstrb(s00_axis_tstrb),      // input wire [0 : 0] s00_axis_tstrb
   .s00_axis_tlast(s00_axis_tlast),      // input wire s00_axis_tlast
   .s00_axis_tvalid(s00_axis_tvalid),    // input wire s00_axis_tvalid
   .m00_axis_aclk(m00_axis_aclk),        // input wire m00_axis_aclk

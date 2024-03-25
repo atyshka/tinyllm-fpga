@@ -2,7 +2,7 @@
 // Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2023.2 (win64) Build 4029153 Fri Oct 13 20:14:34 MDT 2023
-// Date        : Sun Mar 24 20:34:54 2024
+// Date        : Sun Mar 24 21:50:56 2024
 // Host        : DESKTOP-KJ6L8EK running 64-bit major release  (build 9200)
 // Command     : write_verilog -force -mode synth_stub
 //               c:/Users/Administrator/Documents/tinyllm-fpga/ip_repo/matmul_0/matmul_0_stub.v
@@ -23,7 +23,7 @@ module matmul_0(s00_axi_aclk, s00_axi_aresetn,
   s00_axis_aresetn, s00_axis_tready, s00_axis_tdata, s00_axis_tstrb, s00_axis_tlast, 
   s00_axis_tvalid, m00_axis_aclk, m00_axis_aresetn, m00_axis_tvalid, m00_axis_tdata, 
   m00_axis_tstrb, m00_axis_tlast, m00_axis_tready)
-/* synthesis syn_black_box black_box_pad_pin="s00_axi_aresetn,s00_axi_awaddr[4:0],s00_axi_awprot[2:0],s00_axi_awvalid,s00_axi_awready,s00_axi_wdata[31:0],s00_axi_wstrb[3:0],s00_axi_wvalid,s00_axi_wready,s00_axi_bresp[1:0],s00_axi_bvalid,s00_axi_bready,s00_axi_araddr[4:0],s00_axi_arprot[2:0],s00_axi_arvalid,s00_axi_arready,s00_axi_rdata[31:0],s00_axi_rresp[1:0],s00_axi_rvalid,s00_axi_rready,s00_axis_aresetn,s00_axis_tready,s00_axis_tdata[31:0],s00_axis_tstrb[3:0],s00_axis_tlast,s00_axis_tvalid,m00_axis_aclk,m00_axis_aresetn,m00_axis_tvalid,m00_axis_tdata[31:0],m00_axis_tstrb[3:0],m00_axis_tlast,m00_axis_tready" */
+/* synthesis syn_black_box black_box_pad_pin="s00_axi_aresetn,s00_axi_awaddr[4:0],s00_axi_awprot[2:0],s00_axi_awvalid,s00_axi_awready,s00_axi_wdata[31:0],s00_axi_wstrb[3:0],s00_axi_wvalid,s00_axi_wready,s00_axi_bresp[1:0],s00_axi_bvalid,s00_axi_bready,s00_axi_araddr[4:0],s00_axi_arprot[2:0],s00_axi_arvalid,s00_axi_arready,s00_axi_rdata[31:0],s00_axi_rresp[1:0],s00_axi_rvalid,s00_axi_rready,s00_axis_aresetn,s00_axis_tready,s00_axis_tdata[7:0],s00_axis_tstrb[0:0],s00_axis_tlast,s00_axis_tvalid,m00_axis_aclk,m00_axis_aresetn,m00_axis_tvalid,m00_axis_tdata[31:0],m00_axis_tstrb[3:0],m00_axis_tlast,m00_axis_tready" */
 /* synthesis syn_force_seq_prim="s00_axi_aclk" */
 /* synthesis syn_force_seq_prim="s00_axis_aclk" */;
   input s00_axi_aclk /* synthesis syn_isclock = 1 */;
@@ -50,8 +50,8 @@ module matmul_0(s00_axi_aclk, s00_axi_aresetn,
   input s00_axis_aclk /* synthesis syn_isclock = 1 */;
   input s00_axis_aresetn;
   output s00_axis_tready;
-  input [31:0]s00_axis_tdata;
-  input [3:0]s00_axis_tstrb;
+  input [7:0]s00_axis_tdata;
+  input [0:0]s00_axis_tstrb;
   input s00_axis_tlast;
   input s00_axis_tvalid;
   input m00_axis_aclk;

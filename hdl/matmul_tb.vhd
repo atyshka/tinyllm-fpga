@@ -62,8 +62,8 @@ component matmul_0 is
     s00_axis_aclk : IN STD_LOGIC;
     s00_axis_aresetn : IN STD_LOGIC;
     s00_axis_tready : OUT STD_LOGIC;
-    s00_axis_tdata : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
-    s00_axis_tstrb : IN STD_LOGIC_VECTOR(3 DOWNTO 0);
+    s00_axis_tdata : IN STD_LOGIC_VECTOR(7 DOWNTO 0);
+    s00_axis_tstrb : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
     s00_axis_tlast : IN STD_LOGIC;
     s00_axis_tvalid : IN STD_LOGIC;
     m00_axis_aclk : IN STD_LOGIC;
@@ -110,8 +110,8 @@ signal s00_axi_awvalid,
         
 signal s00_axis_tvalid, s00_axis_tlast, s00_axis_tready: std_logic := '0';
 signal m00_axis_tready: std_logic := '0';
-signal s00_axis_tdata	: std_logic_vector(31 downto 0) := (others => '0');
-signal s00_axis_tstrb	: std_logic_vector(3 downto 0) := (others => '0');
+signal s00_axis_tdata	: std_logic_vector(7 downto 0) := (others => '0');
+signal s00_axis_tstrb	: std_logic_vector(0 downto 0) := (others => '0');
 
 constant clk_period : time := 10 ns;
 
@@ -225,7 +225,7 @@ begin
         wait until rising_edge(clk);
       end loop;
       s00_axis_tvalid <= '1';
-      s00_axis_tdata <= std_logic_vector(to_unsigned(i, 32));
+      s00_axis_tdata <= std_logic_vector(to_unsigned(i, 8));
       wait until rising_edge(clk);
     end loop;
     s00_axis_tvalid <= '0';
@@ -236,7 +236,7 @@ begin
         wait until rising_edge(clk);
       end loop;
       s00_axis_tvalid <= '1';
-      s00_axis_tdata <= std_logic_vector(to_unsigned(i, 32));
+      s00_axis_tdata <= std_logic_vector(to_unsigned(i, 8));
       if i = 63 then
         s00_axis_tlast <= '1';
       end if;

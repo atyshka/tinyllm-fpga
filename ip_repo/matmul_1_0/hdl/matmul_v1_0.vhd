@@ -167,8 +167,8 @@ axilite : matmul_v1_0_S00_AXI
 	
 matmul_inst : matmul_manager
   generic map (
-    C_S00_AXIS_TDATA_WIDTH => 32, -- Set generic values as required
-    C_M00_AXIS_TDATA_WIDTH => 32
+    C_S00_AXIS_TDATA_WIDTH => C_S00_AXIS_TDATA_WIDTH, -- Set generic values as required
+    C_M00_AXIS_TDATA_WIDTH => C_M00_AXIS_TDATA_WIDTH
   )
   port map (
     length => vec_len, -- Use signals of the same name

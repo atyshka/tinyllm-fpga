@@ -46,7 +46,7 @@
 -- 
 -- DO NOT MODIFY THIS FILE.
 -- IP VLNV: xilinx.com:user:matmul:1.0
--- IP Revision: 2
+-- IP Revision: 3
 
 -- The following code must appear in the VHDL architecture header.
 
@@ -77,8 +77,8 @@ COMPONENT matmul_0
     s00_axis_aclk : IN STD_LOGIC;
     s00_axis_aresetn : IN STD_LOGIC;
     s00_axis_tready : OUT STD_LOGIC;
-    s00_axis_tdata : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
-    s00_axis_tstrb : IN STD_LOGIC_VECTOR(3 DOWNTO 0);
+    s00_axis_tdata : IN STD_LOGIC_VECTOR(7 DOWNTO 0);
+    s00_axis_tstrb : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
     s00_axis_tlast : IN STD_LOGIC;
     s00_axis_tvalid : IN STD_LOGIC;
     m00_axis_aclk : IN STD_LOGIC;
