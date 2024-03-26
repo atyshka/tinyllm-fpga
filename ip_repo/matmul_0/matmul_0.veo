@@ -47,7 +47,7 @@
 // DO NOT MODIFY THIS FILE.
 
 // IP VLNV: xilinx.com:user:matmul:1.0
-// IP Revision: 3
+// IP Revision: 7
 
 // The following must be inserted into your Verilog file for this
 // core to be instantiated. Change the instance name and port connections
@@ -55,41 +55,39 @@
 
 //----------- Begin Cut here for INSTANTIATION Template ---// INST_TAG
 matmul_0 your_instance_name (
-  .s00_axi_aclk(s00_axi_aclk),          // input wire s00_axi_aclk
-  .s00_axi_aresetn(s00_axi_aresetn),    // input wire s00_axi_aresetn
-  .s00_axi_awaddr(s00_axi_awaddr),      // input wire [4 : 0] s00_axi_awaddr
-  .s00_axi_awprot(s00_axi_awprot),      // input wire [2 : 0] s00_axi_awprot
-  .s00_axi_awvalid(s00_axi_awvalid),    // input wire s00_axi_awvalid
-  .s00_axi_awready(s00_axi_awready),    // output wire s00_axi_awready
-  .s00_axi_wdata(s00_axi_wdata),        // input wire [31 : 0] s00_axi_wdata
-  .s00_axi_wstrb(s00_axi_wstrb),        // input wire [3 : 0] s00_axi_wstrb
-  .s00_axi_wvalid(s00_axi_wvalid),      // input wire s00_axi_wvalid
-  .s00_axi_wready(s00_axi_wready),      // output wire s00_axi_wready
-  .s00_axi_bresp(s00_axi_bresp),        // output wire [1 : 0] s00_axi_bresp
-  .s00_axi_bvalid(s00_axi_bvalid),      // output wire s00_axi_bvalid
-  .s00_axi_bready(s00_axi_bready),      // input wire s00_axi_bready
-  .s00_axi_araddr(s00_axi_araddr),      // input wire [4 : 0] s00_axi_araddr
-  .s00_axi_arprot(s00_axi_arprot),      // input wire [2 : 0] s00_axi_arprot
-  .s00_axi_arvalid(s00_axi_arvalid),    // input wire s00_axi_arvalid
-  .s00_axi_arready(s00_axi_arready),    // output wire s00_axi_arready
-  .s00_axi_rdata(s00_axi_rdata),        // output wire [31 : 0] s00_axi_rdata
-  .s00_axi_rresp(s00_axi_rresp),        // output wire [1 : 0] s00_axi_rresp
-  .s00_axi_rvalid(s00_axi_rvalid),      // output wire s00_axi_rvalid
-  .s00_axi_rready(s00_axi_rready),      // input wire s00_axi_rready
-  .s00_axis_aclk(s00_axis_aclk),        // input wire s00_axis_aclk
-  .s00_axis_aresetn(s00_axis_aresetn),  // input wire s00_axis_aresetn
-  .s00_axis_tready(s00_axis_tready),    // output wire s00_axis_tready
-  .s00_axis_tdata(s00_axis_tdata),      // input wire [7 : 0] s00_axis_tdata
-  .s00_axis_tstrb(s00_axis_tstrb),      // input wire [0 : 0] s00_axis_tstrb
-  .s00_axis_tlast(s00_axis_tlast),      // input wire s00_axis_tlast
-  .s00_axis_tvalid(s00_axis_tvalid),    // input wire s00_axis_tvalid
-  .m00_axis_aclk(m00_axis_aclk),        // input wire m00_axis_aclk
-  .m00_axis_aresetn(m00_axis_aresetn),  // input wire m00_axis_aresetn
-  .m00_axis_tvalid(m00_axis_tvalid),    // output wire m00_axis_tvalid
-  .m00_axis_tdata(m00_axis_tdata),      // output wire [31 : 0] m00_axis_tdata
-  .m00_axis_tstrb(m00_axis_tstrb),      // output wire [3 : 0] m00_axis_tstrb
-  .m00_axis_tlast(m00_axis_tlast),      // output wire m00_axis_tlast
-  .m00_axis_tready(m00_axis_tready)    // input wire m00_axis_tready
+  .s00_axi_aclk(s00_axi_aclk),        // input wire s00_axi_aclk
+  .s00_axi_aresetn(s00_axi_aresetn),  // input wire s00_axi_aresetn
+  .s00_axi_awaddr(s00_axi_awaddr),    // input wire [4 : 0] s00_axi_awaddr
+  .s00_axi_awprot(s00_axi_awprot),    // input wire [2 : 0] s00_axi_awprot
+  .s00_axi_awvalid(s00_axi_awvalid),  // input wire s00_axi_awvalid
+  .s00_axi_awready(s00_axi_awready),  // output wire s00_axi_awready
+  .s00_axi_wdata(s00_axi_wdata),      // input wire [31 : 0] s00_axi_wdata
+  .s00_axi_wstrb(s00_axi_wstrb),      // input wire [3 : 0] s00_axi_wstrb
+  .s00_axi_wvalid(s00_axi_wvalid),    // input wire s00_axi_wvalid
+  .s00_axi_wready(s00_axi_wready),    // output wire s00_axi_wready
+  .s00_axi_bresp(s00_axi_bresp),      // output wire [1 : 0] s00_axi_bresp
+  .s00_axi_bvalid(s00_axi_bvalid),    // output wire s00_axi_bvalid
+  .s00_axi_bready(s00_axi_bready),    // input wire s00_axi_bready
+  .s00_axi_araddr(s00_axi_araddr),    // input wire [4 : 0] s00_axi_araddr
+  .s00_axi_arprot(s00_axi_arprot),    // input wire [2 : 0] s00_axi_arprot
+  .s00_axi_arvalid(s00_axi_arvalid),  // input wire s00_axi_arvalid
+  .s00_axi_arready(s00_axi_arready),  // output wire s00_axi_arready
+  .s00_axi_rdata(s00_axi_rdata),      // output wire [31 : 0] s00_axi_rdata
+  .s00_axi_rresp(s00_axi_rresp),      // output wire [1 : 0] s00_axi_rresp
+  .s00_axi_rvalid(s00_axi_rvalid),    // output wire s00_axi_rvalid
+  .s00_axi_rready(s00_axi_rready),    // input wire s00_axi_rready
+  .axis_aclk(axis_aclk),              // input wire axis_aclk
+  .axis_aresetn(axis_aresetn),        // input wire axis_aresetn
+  .s00_axis_tready(s00_axis_tready),  // output wire s00_axis_tready
+  .s00_axis_tdata(s00_axis_tdata),    // input wire [7 : 0] s00_axis_tdata
+  .s00_axis_tstrb(s00_axis_tstrb),    // input wire [0 : 0] s00_axis_tstrb
+  .s00_axis_tlast(s00_axis_tlast),    // input wire s00_axis_tlast
+  .s00_axis_tvalid(s00_axis_tvalid),  // input wire s00_axis_tvalid
+  .m00_axis_tvalid(m00_axis_tvalid),  // output wire m00_axis_tvalid
+  .m00_axis_tdata(m00_axis_tdata),    // output wire [31 : 0] m00_axis_tdata
+  .m00_axis_tstrb(m00_axis_tstrb),    // output wire [3 : 0] m00_axis_tstrb
+  .m00_axis_tlast(m00_axis_tlast),    // output wire m00_axis_tlast
+  .m00_axis_tready(m00_axis_tready)  // input wire m00_axis_tready
 );
 // INST_TAG_END ------ End INSTANTIATION Template ---------
 

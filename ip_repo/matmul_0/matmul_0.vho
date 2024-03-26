@@ -46,7 +46,7 @@
 -- 
 -- DO NOT MODIFY THIS FILE.
 -- IP VLNV: xilinx.com:user:matmul:1.0
--- IP Revision: 3
+-- IP Revision: 7
 
 -- The following code must appear in the VHDL architecture header.
 
@@ -74,15 +74,13 @@ COMPONENT matmul_0
     s00_axi_rresp : OUT STD_LOGIC_VECTOR(1 DOWNTO 0);
     s00_axi_rvalid : OUT STD_LOGIC;
     s00_axi_rready : IN STD_LOGIC;
-    s00_axis_aclk : IN STD_LOGIC;
-    s00_axis_aresetn : IN STD_LOGIC;
+    axis_aclk : IN STD_LOGIC;
+    axis_aresetn : IN STD_LOGIC;
     s00_axis_tready : OUT STD_LOGIC;
     s00_axis_tdata : IN STD_LOGIC_VECTOR(7 DOWNTO 0);
     s00_axis_tstrb : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
     s00_axis_tlast : IN STD_LOGIC;
     s00_axis_tvalid : IN STD_LOGIC;
-    m00_axis_aclk : IN STD_LOGIC;
-    m00_axis_aresetn : IN STD_LOGIC;
     m00_axis_tvalid : OUT STD_LOGIC;
     m00_axis_tdata : OUT STD_LOGIC_VECTOR(31 DOWNTO 0);
     m00_axis_tstrb : OUT STD_LOGIC_VECTOR(3 DOWNTO 0);
@@ -119,15 +117,13 @@ your_instance_name : matmul_0
     s00_axi_rresp => s00_axi_rresp,
     s00_axi_rvalid => s00_axi_rvalid,
     s00_axi_rready => s00_axi_rready,
-    s00_axis_aclk => s00_axis_aclk,
-    s00_axis_aresetn => s00_axis_aresetn,
+    axis_aclk => axis_aclk,
+    axis_aresetn => axis_aresetn,
     s00_axis_tready => s00_axis_tready,
     s00_axis_tdata => s00_axis_tdata,
     s00_axis_tstrb => s00_axis_tstrb,
     s00_axis_tlast => s00_axis_tlast,
     s00_axis_tvalid => s00_axis_tvalid,
-    m00_axis_aclk => m00_axis_aclk,
-    m00_axis_aresetn => m00_axis_aresetn,
     m00_axis_tvalid => m00_axis_tvalid,
     m00_axis_tdata => m00_axis_tdata,
     m00_axis_tstrb => m00_axis_tstrb,

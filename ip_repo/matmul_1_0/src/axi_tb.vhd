@@ -40,8 +40,8 @@ component matmul_v1_0 is
 	generic (
 		C_S00_AXI_DATA_WIDTH	: integer	:= 32;
 		C_S00_AXI_ADDR_WIDTH	: integer	:= 5;
-		C_S00_AXIS_TDATA_WIDTH	: integer	:= 32;
-		C_M00_AXIS_TDATA_WIDTH	: integer	:= 32;
+		WEIGHT_TDATA_WIDTH	: integer	:= 32;
+		OUTPUT_TDATA_WIDTH	: integer	:= 32;
 		C_M00_AXIS_START_COUNT	: integer	:= 32
 	);
 	port (
@@ -71,8 +71,8 @@ component matmul_v1_0 is
 		s00_axis_aclk	: in std_logic;
 		s00_axis_aresetn	: in std_logic;
 		s00_axis_tready	: out std_logic;
-		s00_axis_tdata	: in std_logic_vector(C_S00_AXIS_TDATA_WIDTH-1 downto 0);
-		s00_axis_tstrb	: in std_logic_vector((C_S00_AXIS_TDATA_WIDTH/8)-1 downto 0);
+		s00_axis_tdata	: in std_logic_vector(WEIGHT_TDATA_WIDTH-1 downto 0);
+		s00_axis_tstrb	: in std_logic_vector((WEIGHT_TDATA_WIDTH/8)-1 downto 0);
 		s00_axis_tlast	: in std_logic;
 		s00_axis_tvalid	: in std_logic;
 
@@ -80,8 +80,8 @@ component matmul_v1_0 is
 		m00_axis_aclk	: in std_logic;
 		m00_axis_aresetn	: in std_logic;
 		m00_axis_tvalid	: out std_logic;
-		m00_axis_tdata	: out std_logic_vector(C_M00_AXIS_TDATA_WIDTH-1 downto 0);
-		m00_axis_tstrb	: out std_logic_vector((C_M00_AXIS_TDATA_WIDTH/8)-1 downto 0);
+		m00_axis_tdata	: out std_logic_vector(OUTPUT_TDATA_WIDTH-1 downto 0);
+		m00_axis_tstrb	: out std_logic_vector((OUTPUT_TDATA_WIDTH/8)-1 downto 0);
 		m00_axis_tlast	: out std_logic;
 		m00_axis_tready	: in std_logic
 	);
@@ -146,8 +146,8 @@ begin
 --		s00_axis_aclk	: in std_logic;
 --		s00_axis_aresetn	: in std_logic;
 --		s00_axis_tready	: out std_logic;
---		s00_axis_tdata	: in std_logic_vector(C_S00_AXIS_TDATA_WIDTH-1 downto 0);
---		s00_axis_tstrb	: in std_logic_vector((C_S00_AXIS_TDATA_WIDTH/8)-1 downto 0);
+--		s00_axis_tdata	: in std_logic_vector(WEIGHT_TDATA_WIDTH-1 downto 0);
+--		s00_axis_tstrb	: in std_logic_vector((WEIGHT_TDATA_WIDTH/8)-1 downto 0);
 --		s00_axis_tlast	: in std_logic;
 --		s00_axis_tvalid	: in std_logic;
 
@@ -155,8 +155,8 @@ begin
 --		m00_axis_aclk	: in std_logic;
 --		m00_axis_aresetn	: in std_logic;
 --		m00_axis_tvalid	: out std_logic;
---		m00_axis_tdata	: out std_logic_vector(C_M00_AXIS_TDATA_WIDTH-1 downto 0);
---		m00_axis_tstrb	: out std_logic_vector((C_M00_AXIS_TDATA_WIDTH/8)-1 downto 0);
+--		m00_axis_tdata	: out std_logic_vector(OUTPUT_TDATA_WIDTH-1 downto 0);
+--		m00_axis_tstrb	: out std_logic_vector((OUTPUT_TDATA_WIDTH/8)-1 downto 0);
 --		m00_axis_tlast	: out std_logic;
 --		m00_axis_tready	: in std_logic
 --	);
@@ -165,8 +165,8 @@ inst_matmul_v1_0: matmul_v1_0
     generic map (
         C_S00_AXI_DATA_WIDTH    => 32,
         C_S00_AXI_ADDR_WIDTH    => 5,
-        C_S00_AXIS_TDATA_WIDTH  => 32,
-        C_M00_AXIS_TDATA_WIDTH  => 32,
+        WEIGHT_TDATA_WIDTH  => 32,
+        OUTPUT_TDATA_WIDTH  => 32,
         C_M00_AXIS_START_COUNT => 32
     )
     port map (
@@ -252,10 +252,10 @@ begin
     wait until rising_edge(clk);
     
     for i in 0 to 31 loop
-      s00_axis_tvalid <= '1';
       while s00_axis_tready /= '1' loop
         wait until rising_edge(clk);
       end loop;
+      s00_axis_tvalid <= '1';
       s00_axis_tdata <= std_logic_vector(to_unsigned(i, 32));
       wait until rising_edge(clk);
     end loop;
@@ -263,10 +263,25 @@ begin
     wait for 40ns;
     wait until rising_edge(clk);
     for i in 32 to 63 loop
-      s00_axis_tvalid <= '1';
       while s00_axis_tready /= '1' loop
         wait until rising_edge(clk);
       end loop;
+      s00_axis_tvalid <= '1';
+      s00_axis_tdata <= std_logic_vector(to_unsigned(i, 32));
+      if i = 63 then
+        s00_axis_tlast <= '1';
+      end if;
+      wait until rising_edge(clk);
+    end loop;
+    s00_axis_tvalid <= '0';
+    s00_axis_tlast <= '0';
+    wait for 40ns;
+    wait until rising_edge(clk);
+    for i in 0 to 63 loop
+      while s00_axis_tready /= '1' loop
+        wait until rising_edge(clk);
+      end loop;
+      s00_axis_tvalid <= '1';
       s00_axis_tdata <= std_logic_vector(to_unsigned(i, 32));
       if i = 63 then
         s00_axis_tlast <= '1';

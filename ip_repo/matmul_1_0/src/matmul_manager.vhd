@@ -33,8 +33,8 @@ use IEEE.NUMERIC_STD.ALL;
 
 entity matmul_manager is
 	generic (
-		C_S00_AXIS_TDATA_WIDTH	: integer	:= 32;
-		C_M00_AXIS_TDATA_WIDTH	: integer	:= 32
+		WEIGHT_TDATA_WIDTH	: integer	:= 32;
+		OUTPUT_TDATA_WIDTH	: integer	:= 32
 	);
   Port (
     length: in unsigned(15 downto 0);
@@ -42,15 +42,15 @@ entity matmul_manager is
 		s00_axis_aclk	: in std_logic;
 		s00_axis_aresetn	: in std_logic;
 		s00_axis_tready	: out std_logic;
-		s00_axis_tdata	: in std_logic_vector(C_S00_AXIS_TDATA_WIDTH-1 downto 0);
+		s00_axis_tdata	: in std_logic_vector(WEIGHT_TDATA_WIDTH-1 downto 0);
 		s00_axis_tlast	: in std_logic;
 		s00_axis_tvalid	: in std_logic;
 
 		-- Ports of Axi Master Bus Interface M00_AXIS
-		m00_axis_aclk	: in std_logic;
-		m00_axis_aresetn	: in std_logic;
+--		m00_axis_aclk	: in std_logic;
+--		m00_axis_aresetn	: in std_logic;
 		m00_axis_tvalid	: out std_logic;
-		m00_axis_tdata	: out std_logic_vector(C_M00_AXIS_TDATA_WIDTH-1 downto 0);
+		m00_axis_tdata	: out std_logic_vector(OUTPUT_TDATA_WIDTH-1 downto 0);
 		m00_axis_tlast	: out std_logic;
 		m00_axis_tready	: in std_logic
   );
@@ -72,7 +72,7 @@ type state_type is (idle, active, blocked, finishing, blocked_finishing, done);
 
 signal state: state_type := idle;
 signal macc_en, first_done, result_ready, clr_acc: std_logic := '0';
-signal acc_out, output_reg: std_logic_vector(C_M00_AXIS_TDATA_WIDTH-1 downto 0) := (others => '0');
+signal acc_out, output_reg: std_logic_vector(OUTPUT_TDATA_WIDTH-1 downto 0) := (others => '0');
 signal count: unsigned(15 downto 0) := to_unsigned(0, 16);
 
 begin
@@ -89,9 +89,11 @@ macc: macc_dsp port map(
 macc_en <= '1' when 
             (state = active and s00_axis_tvalid = '1') or
             state = finishing else '0';
-clr_acc <= '1' when count = 1 and first_done = '1' else '0';
+clr_acc <= '1' when (count = 1 and first_done = '1') or (count < 2 and first_done = '0') else '0';
 s00_axis_tready <= '1' when state = active else '0';
 m00_axis_tvalid <= result_ready;
+m00_axis_tdata <= output_reg;
+m00_axis_tlast <= '1' when state = done else '0';
 
 process (s00_axis_aclk)
 begin

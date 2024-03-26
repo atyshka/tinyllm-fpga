@@ -15,11 +15,10 @@ entity matmul_v1_0 is
 		C_S00_AXI_ADDR_WIDTH	: integer	:= 5;
 
 		-- Parameters of Axi Slave Bus Interface S00_AXIS
-		C_S00_AXIS_TDATA_WIDTH	: integer	:= 32;
+		WEIGHT_TDATA_WIDTH	: integer	:= 32;
 
 		-- Parameters of Axi Master Bus Interface M00_AXIS
-		C_M00_AXIS_TDATA_WIDTH	: integer	:= 32;
-		C_M00_AXIS_START_COUNT	: integer	:= 32
+		OUTPUT_TDATA_WIDTH	: integer	:= 32
 	);
 	port (
 		-- Users to add ports here
@@ -52,20 +51,20 @@ entity matmul_v1_0 is
 		s00_axi_rready	: in std_logic;
 
 		-- Ports of Axi Slave Bus Interface S00_AXIS
-		s00_axis_aclk	: in std_logic;
-		s00_axis_aresetn	: in std_logic;
+		axis_aclk	: in std_logic;
+		axis_aresetn	: in std_logic;
 		s00_axis_tready	: out std_logic;
-		s00_axis_tdata	: in std_logic_vector(C_S00_AXIS_TDATA_WIDTH-1 downto 0);
-		s00_axis_tstrb	: in std_logic_vector((C_S00_AXIS_TDATA_WIDTH/8)-1 downto 0);
+		s00_axis_tdata	: in std_logic_vector(WEIGHT_TDATA_WIDTH-1 downto 0);
+		s00_axis_tstrb	: in std_logic_vector((WEIGHT_TDATA_WIDTH/8)-1 downto 0);
 		s00_axis_tlast	: in std_logic;
 		s00_axis_tvalid	: in std_logic;
 
 		-- Ports of Axi Master Bus Interface M00_AXIS
-		m00_axis_aclk	: in std_logic;
-		m00_axis_aresetn	: in std_logic;
+--		m00_axis_aclk	: in std_logic;
+--		m00_axis_aresetn	: in std_logic;
 		m00_axis_tvalid	: out std_logic;
-		m00_axis_tdata	: out std_logic_vector(C_M00_AXIS_TDATA_WIDTH-1 downto 0);
-		m00_axis_tstrb	: out std_logic_vector((C_M00_AXIS_TDATA_WIDTH/8)-1 downto 0);
+		m00_axis_tdata	: out std_logic_vector(OUTPUT_TDATA_WIDTH-1 downto 0);
+		m00_axis_tstrb	: out std_logic_vector((OUTPUT_TDATA_WIDTH/8)-1 downto 0);
 		m00_axis_tlast	: out std_logic;
 		m00_axis_tready	: in std_logic
 	);
@@ -107,8 +106,8 @@ architecture arch_imp of matmul_v1_0 is
 	end component matmul_v1_0_S00_AXI;
   component matmul_manager is
     generic (
-      C_S00_AXIS_TDATA_WIDTH	: integer	:= 32;
-      C_M00_AXIS_TDATA_WIDTH	: integer	:= 32
+      WEIGHT_TDATA_WIDTH	: integer	:= 32;
+      OUTPUT_TDATA_WIDTH	: integer	:= 32
     );
     Port (
       length: in unsigned(15 downto 0);
@@ -116,15 +115,15 @@ architecture arch_imp of matmul_v1_0 is
       s00_axis_aclk	: in std_logic;
       s00_axis_aresetn	: in std_logic;
       s00_axis_tready	: out std_logic;
-      s00_axis_tdata	: in std_logic_vector(C_S00_AXIS_TDATA_WIDTH-1 downto 0);
+      s00_axis_tdata	: in std_logic_vector(WEIGHT_TDATA_WIDTH-1 downto 0);
       s00_axis_tlast	: in std_logic;
       s00_axis_tvalid	: in std_logic;
   
       -- Ports of Axi Master Bus Interface M00_AXIS
-      m00_axis_aclk	: in std_logic;
-      m00_axis_aresetn	: in std_logic;
+--      m00_axis_aclk	: in std_logic;
+--      m00_axis_aresetn	: in std_logic;
       m00_axis_tvalid	: out std_logic;
-      m00_axis_tdata	: out std_logic_vector(C_M00_AXIS_TDATA_WIDTH-1 downto 0);
+      m00_axis_tdata	: out std_logic_vector(OUTPUT_TDATA_WIDTH-1 downto 0);
       m00_axis_tlast	: out std_logic;
       m00_axis_tready	: in std_logic
     );
@@ -167,26 +166,25 @@ axilite : matmul_v1_0_S00_AXI
 	
 matmul_inst : matmul_manager
   generic map (
-    C_S00_AXIS_TDATA_WIDTH => C_S00_AXIS_TDATA_WIDTH, -- Set generic values as required
-    C_M00_AXIS_TDATA_WIDTH => C_M00_AXIS_TDATA_WIDTH
+    WEIGHT_TDATA_WIDTH => WEIGHT_TDATA_WIDTH, -- Set generic values as required
+    OUTPUT_TDATA_WIDTH => OUTPUT_TDATA_WIDTH
   )
   port map (
     length => vec_len, -- Use signals of the same name
     -- Ports of Axi Slave Bus Interface S00_AXIS
-    s00_axis_aclk => s00_axis_aclk,
-    s00_axis_aresetn => s00_axis_aresetn,
+    s00_axis_aclk => axis_aclk,
+    s00_axis_aresetn => axis_aresetn,
     s00_axis_tready => s00_axis_tready,
     s00_axis_tdata => s00_axis_tdata,
     s00_axis_tlast => s00_axis_tlast,
     s00_axis_tvalid => s00_axis_tvalid,
     -- Ports of Axi Master Bus Interface M00_AXIS
-    m00_axis_aclk => m00_axis_aclk,
-    m00_axis_aresetn => m00_axis_aresetn,
     m00_axis_tvalid => m00_axis_tvalid,
     m00_axis_tdata => m00_axis_tdata,
     m00_axis_tlast => m00_axis_tlast,
     m00_axis_tready => m00_axis_tready
   );
 
+m00_axis_tstrb <= (others => '1');
 
 end arch_imp;
