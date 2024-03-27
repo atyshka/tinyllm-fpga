@@ -34,7 +34,9 @@ use IEEE.NUMERIC_STD.ALL;
 entity matmul_manager is
 	generic (
 		WEIGHT_TDATA_WIDTH	: integer	:= 32;
-		OUTPUT_TDATA_WIDTH	: integer	:= 32
+		OUTPUT_TDATA_WIDTH	: integer	:= 32;
+		BRAM_DATA_WIDTH	: integer	:= 8;
+		BRAM_ADDR_WIDTH	: integer	:= 12
 	);
   Port (
     length: in unsigned(15 downto 0);
@@ -52,7 +54,11 @@ entity matmul_manager is
 		m00_axis_tvalid	: out std_logic;
 		m00_axis_tdata	: out std_logic_vector(OUTPUT_TDATA_WIDTH-1 downto 0);
 		m00_axis_tlast	: out std_logic;
-		m00_axis_tready	: in std_logic
+		m00_axis_tready	: in std_logic;
+		
+		bram_din: in std_logic_vector(BRAM_DATA_WIDTH-1 downto 0);
+		bram_addr: out std_logic_vector(BRAM_ADDR_WIDTH-1 downto 0);
+		bram_en: out std_logic
   );
 end matmul_manager;
 
@@ -73,7 +79,8 @@ type state_type is (idle, active, blocked, finishing, blocked_finishing, done);
 signal state: state_type := idle;
 signal macc_en, first_done, result_ready, clr_acc: std_logic := '0';
 signal acc_out, output_reg: std_logic_vector(OUTPUT_TDATA_WIDTH-1 downto 0) := (others => '0');
-signal count: unsigned(15 downto 0) := to_unsigned(0, 16);
+signal count, next_count: unsigned(15 downto 0) := to_unsigned(0, 16);
+--signal fake_bram: unsigned(15 downto 0) := to_unsigned(0, 16);
 
 begin
 
@@ -82,7 +89,7 @@ macc: macc_dsp port map(
   ce => macc_en,
   clr_acc => clr_acc,
   a => signed(s00_axis_tdata(7 downto 0)),
-  b => x"01",
+  b => signed(bram_din(7 downto 0)),
   std_logic_vector(accum_out) => acc_out
 );
 
@@ -94,10 +101,15 @@ s00_axis_tready <= '1' when state = active else '0';
 m00_axis_tvalid <= result_ready;
 m00_axis_tdata <= output_reg;
 m00_axis_tlast <= '1' when state = done else '0';
+next_count <= (others => '0') when (state = idle or state = done or count = length-1) else count + 1;
+bram_en <= '1' when (state = idle or s00_axis_tvalid = '1') else '0';
 
 process (s00_axis_aclk)
 begin
   if rising_edge(s00_axis_aclk) then
+--    if (state = idle or s00_axis_tvalid = '1') then
+--      fake_bram <= next_count;
+--    end if;
     if s00_axis_aresetn = '0' then
       state <= idle;
       first_done <= '0';
@@ -112,11 +124,12 @@ begin
             if s00_axis_tlast = '1' then
               state <= finishing;
             end if;
-             
-            if count = length-1 then
+            
+            if count = length - 1 then
               first_done <= '1';
-              count <= (others => '0');
-            elsif count = 1 and result_ready = '1' then
+            end if; 
+            
+            if count = 1 and result_ready = '1' then
               if state = finishing then
                 state <= blocked_finishing;
               else
@@ -126,28 +139,28 @@ begin
               result_ready <= '1';
               output_reg <= acc_out;
               if state = active then
-                count <= count + 1;
+                count <= next_count;
               else
                 state <= done;
               end if;
             else
-              count <= count + 1;
+              count <= next_count;
             end if;
           end if;
         when blocked =>
           if m00_axis_tready = '1' then
             state <= active;
             if s00_axis_tvalid = '1' then
-              count <= count + 1;
+              count <= next_count;
             end if;
           end if;
         when blocked_finishing =>
           if m00_axis_tready = '1' then
             state <= finishing;
-            count <= count + 1;
+            count <= next_count;
           end if;
         when done =>
-          count <= (others => '0');
+          count <= next_count;
           first_done <= '0';
           if m00_axis_tready = '1' then
             state <= idle;

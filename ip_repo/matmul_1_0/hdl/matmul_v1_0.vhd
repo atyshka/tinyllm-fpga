@@ -107,7 +107,9 @@ architecture arch_imp of matmul_v1_0 is
   component matmul_manager is
     generic (
       WEIGHT_TDATA_WIDTH	: integer	:= 32;
-      OUTPUT_TDATA_WIDTH	: integer	:= 32
+      OUTPUT_TDATA_WIDTH	: integer	:= 32;
+      BRAM_DATA_WIDTH	: integer	:= 8;
+      BRAM_ADDR_WIDTH	: integer	:= 12
     );
     Port (
       length: in unsigned(15 downto 0);
@@ -125,7 +127,10 @@ architecture arch_imp of matmul_v1_0 is
       m00_axis_tvalid	: out std_logic;
       m00_axis_tdata	: out std_logic_vector(OUTPUT_TDATA_WIDTH-1 downto 0);
       m00_axis_tlast	: out std_logic;
-      m00_axis_tready	: in std_logic
+      m00_axis_tready	: in std_logic;
+		
+      bram_din: in std_logic_vector(BRAM_DATA_WIDTH-1 downto 0);
+      bram_addr: out std_logic_vector(BRAM_ADDR_WIDTH-1 downto 0)
     );
   end component;
 
@@ -182,7 +187,8 @@ matmul_inst : matmul_manager
     m00_axis_tvalid => m00_axis_tvalid,
     m00_axis_tdata => m00_axis_tdata,
     m00_axis_tlast => m00_axis_tlast,
-    m00_axis_tready => m00_axis_tready
+    m00_axis_tready => m00_axis_tready,
+		bram_din => x"01"
   );
 
 m00_axis_tstrb <= (others => '1');

@@ -154,16 +154,14 @@ inst_matmul_v1_0: matmul_0
         s00_axi_arvalid    => '0',             -- Not used
         s00_axi_rready     => '1',             -- Always ready for read
 
-        s00_axis_aclk      => clk,
-        s00_axis_aresetn   => resetn,
+        axis_aclk      => clk,
+        axis_aresetn   => resetn,
         s00_axis_tready    => s00_axis_tready,
         s00_axis_tdata     => s00_axis_tdata,
         s00_axis_tstrb     => s00_axis_tstrb,
         s00_axis_tlast     => s00_axis_tlast,
         s00_axis_tvalid    => s00_axis_tvalid,
 
-        m00_axis_aclk      => clk,
-        m00_axis_aresetn   => resetn,
         m00_axis_tready    => m00_axis_tready
     );
 

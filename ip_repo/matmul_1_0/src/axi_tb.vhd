@@ -38,13 +38,24 @@ end axi_tb;
 architecture Behavioral of axi_tb is
 component matmul_v1_0 is
 	generic (
+		-- Parameters of Axi Slave Bus Interface S00_AXI
 		C_S00_AXI_DATA_WIDTH	: integer	:= 32;
 		C_S00_AXI_ADDR_WIDTH	: integer	:= 5;
+
+		-- Parameters of Axi Slave Bus Interface S00_AXIS
 		WEIGHT_TDATA_WIDTH	: integer	:= 32;
-		OUTPUT_TDATA_WIDTH	: integer	:= 32;
-		C_M00_AXIS_START_COUNT	: integer	:= 32
+
+		-- Parameters of Axi Master Bus Interface M00_AXIS
+		OUTPUT_TDATA_WIDTH	: integer	:= 32
 	);
 	port (
+		-- Users to add ports here
+
+		-- User ports ends
+		-- Do not modify the ports beyond this line
+
+
+		-- Ports of Axi Slave Bus Interface S00_AXI
 		s00_axi_aclk	: in std_logic;
 		s00_axi_aresetn	: in std_logic;
 		s00_axi_awaddr	: in std_logic_vector(C_S00_AXI_ADDR_WIDTH-1 downto 0);
@@ -68,8 +79,8 @@ component matmul_v1_0 is
 		s00_axi_rready	: in std_logic;
 
 		-- Ports of Axi Slave Bus Interface S00_AXIS
-		s00_axis_aclk	: in std_logic;
-		s00_axis_aresetn	: in std_logic;
+		axis_aclk	: in std_logic;
+		axis_aresetn	: in std_logic;
 		s00_axis_tready	: out std_logic;
 		s00_axis_tdata	: in std_logic_vector(WEIGHT_TDATA_WIDTH-1 downto 0);
 		s00_axis_tstrb	: in std_logic_vector((WEIGHT_TDATA_WIDTH/8)-1 downto 0);
@@ -77,8 +88,8 @@ component matmul_v1_0 is
 		s00_axis_tvalid	: in std_logic;
 
 		-- Ports of Axi Master Bus Interface M00_AXIS
-		m00_axis_aclk	: in std_logic;
-		m00_axis_aresetn	: in std_logic;
+--		m00_axis_aclk	: in std_logic;
+--		m00_axis_aresetn	: in std_logic;
 		m00_axis_tvalid	: out std_logic;
 		m00_axis_tdata	: out std_logic_vector(OUTPUT_TDATA_WIDTH-1 downto 0);
 		m00_axis_tstrb	: out std_logic_vector((OUTPUT_TDATA_WIDTH/8)-1 downto 0);
@@ -166,8 +177,7 @@ inst_matmul_v1_0: matmul_v1_0
         C_S00_AXI_DATA_WIDTH    => 32,
         C_S00_AXI_ADDR_WIDTH    => 5,
         WEIGHT_TDATA_WIDTH  => 32,
-        OUTPUT_TDATA_WIDTH  => 32,
-        C_M00_AXIS_START_COUNT => 32
+        OUTPUT_TDATA_WIDTH  => 32
     )
     port map (
         s00_axi_aclk       => clk,
@@ -187,16 +197,14 @@ inst_matmul_v1_0: matmul_v1_0
         s00_axi_arvalid    => '0',             -- Not used
         s00_axi_rready     => '1',             -- Always ready for read
 
-        s00_axis_aclk      => clk,
-        s00_axis_aresetn   => resetn,
+        axis_aclk      => clk,
+        axis_aresetn   => resetn,
         s00_axis_tready    => s00_axis_tready,
         s00_axis_tdata     => s00_axis_tdata,
         s00_axis_tstrb     => s00_axis_tstrb,
         s00_axis_tlast     => s00_axis_tlast,
         s00_axis_tvalid    => s00_axis_tvalid,
 
-        m00_axis_aclk      => clk,
-        m00_axis_aresetn   => resetn,
         m00_axis_tready    => m00_axis_tready
     );
 
