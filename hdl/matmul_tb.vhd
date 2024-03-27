@@ -59,15 +59,13 @@ component matmul_0 is
     s00_axi_rresp : OUT STD_LOGIC_VECTOR(1 DOWNTO 0);
     s00_axi_rvalid : OUT STD_LOGIC;
     s00_axi_rready : IN STD_LOGIC;
-    s00_axis_aclk : IN STD_LOGIC;
-    s00_axis_aresetn : IN STD_LOGIC;
+    axis_aclk : IN STD_LOGIC;
+    axis_aresetn : IN STD_LOGIC;
     s00_axis_tready : OUT STD_LOGIC;
     s00_axis_tdata : IN STD_LOGIC_VECTOR(7 DOWNTO 0);
     s00_axis_tstrb : IN STD_LOGIC_VECTOR(0 DOWNTO 0);
     s00_axis_tlast : IN STD_LOGIC;
     s00_axis_tvalid : IN STD_LOGIC;
-    m00_axis_aclk : IN STD_LOGIC;
-    m00_axis_aresetn : IN STD_LOGIC;
     m00_axis_tvalid : OUT STD_LOGIC;
     m00_axis_tdata : OUT STD_LOGIC_VECTOR(31 DOWNTO 0);
     m00_axis_tstrb : OUT STD_LOGIC_VECTOR(3 DOWNTO 0);
