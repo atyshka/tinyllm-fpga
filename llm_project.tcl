@@ -27,10 +27,10 @@
 #
 # 3. The following remote source files that were added to the original project:-
 #
-#    "C:/Users/Administrator/Documents/tinyllm-fpga/ip_repo/matmul_0/matmul_0.xci"
-#    "C:/Users/Administrator/Documents/tinyllm-fpga/ip_repo/blk_mem_dp_32_1024/blk_mem_dp_32_1024.xci"
-#    "C:/Users/Administrator/Documents/tinyllm-fpga/hdl/matmul_tb.vhd"
-#    "C:/Users/Administrator/Documents/tinyllm-fpga/checkpoints/synth_1/simple_dma_wrapper.dcp"
+#    "C:/Users/Max/Desktop/tinyllm-fpga/ip_repo/matmul_0/matmul_0.xci"
+#    "C:/Users/Max/Desktop/tinyllm-fpga/ip_repo/blk_mem_dp_32_1024/blk_mem_dp_32_1024.xci"
+#    "C:/Users/Max/Desktop/tinyllm-fpga/hdl/matmul_tb.vhd"
+#    "C:/Users/Max/Desktop/tinyllm-fpga/checkpoints/synth_1/simple_dma_wrapper.dcp"
 #
 #*****************************************************************************************
 
@@ -153,7 +153,7 @@ set proj_dir [get_property directory [current_project]]
 set obj [current_project]
 set_property -name "board_part_repo_paths" -value "[file normalize "$origin_dir/../../AppData/Roaming/Xilinx/Vivado/2023.2/xhub/board_store/xilinx_board_store"]" -objects $obj
 set_property -name "board_part" -value "www.digilentinc.com:pynq-z1:part0:1.0" -objects $obj
-set_property -name "customized_default_ip_location" -value "C:/Users/Administrator/Documents/tinyllm-fpga/ip_repo" -objects $obj
+set_property -name "customized_default_ip_location" -value "C:/Users/Max/Desktop/tinyllm-fpga/ip_repo" -objects $obj
 set_property -name "default_lib" -value "xil_defaultlib" -objects $obj
 set_property -name "enable_resource_estimation" -value "0" -objects $obj
 set_property -name "enable_vhdl_2008" -value "1" -objects $obj
@@ -1064,9 +1064,9 @@ if { $obj != "" } {
 
 }
 set obj [get_runs synth_1]
-set_property -name "incremental_checkpoint" -value "C:/Users/Administrator/Documents/tinyllm-fpga/checkpoints/synth_1/simple_dma_wrapper.dcp" -objects $obj
+set_property -name "incremental_checkpoint" -value "C:/Users/Max/Desktop/tinyllm-fpga/checkpoints/synth_1/simple_dma_wrapper.dcp" -objects $obj
 set_property -name "auto_incremental_checkpoint" -value "1" -objects $obj
-set_property -name "auto_incremental_checkpoint.directory" -value "C:/Users/Administrator/Documents/tinyllm-fpga/checkpoints/synth_1" -objects $obj
+set_property -name "auto_incremental_checkpoint.directory" -value "C:/Users/Max/Desktop/tinyllm-fpga/checkpoints/synth_1" -objects $obj
 set_property -name "strategy" -value "Vivado Synthesis Defaults" -objects $obj
 
 # set the current synth run

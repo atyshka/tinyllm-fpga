@@ -37,7 +37,14 @@ end matmul_tb;
 
 architecture Behavioral of matmul_tb is
 component matmul_0 is
-	port (
+port (
+    addra : out std_logic_vector(11 downto 0);
+    clka : out std_logic;
+    dina : out std_logic_vector(7 downto 0);
+    douta : in std_logic_vector(7 downto 0);
+    ena : out std_logic;
+    rsta : out std_logic;
+    wea : out std_logic;
     s00_axi_aclk : IN STD_LOGIC;
     s00_axi_aresetn : IN STD_LOGIC;
     s00_axi_awaddr : IN STD_LOGIC_VECTOR(4 DOWNTO 0);
@@ -74,28 +81,48 @@ component matmul_0 is
 	);
 end component;
 
-COMPONENT blk_mem_dp_32_1024
+--COMPONENT blk_mem_dp_32_1024
+--  PORT (
+--    clka : IN STD_LOGIC;
+--    rsta : IN STD_LOGIC;
+--    ena : IN STD_LOGIC;
+--    wea : IN STD_LOGIC_VECTOR(3 DOWNTO 0);
+--    addra : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
+--    dina : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
+--    douta : OUT STD_LOGIC_VECTOR(31 DOWNTO 0);
+--    clkb : IN STD_LOGIC;
+--    rstb : IN STD_LOGIC;
+--    enb : IN STD_LOGIC;
+--    web : IN STD_LOGIC_VECTOR(3 DOWNTO 0);
+--    addrb : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
+--    dinb : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
+--    doutb : OUT STD_LOGIC_VECTOR(31 DOWNTO 0);
+--    rsta_busy : OUT STD_LOGIC;
+--    rstb_busy : OUT STD_LOGIC 
+--  );
+--END COMPONENT;
+
+COMPONENT blk_mem_gen_0
   PORT (
     clka : IN STD_LOGIC;
-    rsta : IN STD_LOGIC;
     ena : IN STD_LOGIC;
-    wea : IN STD_LOGIC_VECTOR(3 DOWNTO 0);
-    addra : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
-    dina : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
-    douta : OUT STD_LOGIC_VECTOR(31 DOWNTO 0);
+    wea : IN STD_LOGIC;
+    addra : IN STD_LOGIC_VECTOR(11 DOWNTO 0);
+    dina : IN STD_LOGIC_VECTOR(7 DOWNTO 0);
+    douta : OUT STD_LOGIC_VECTOR(7 DOWNTO 0);
     clkb : IN STD_LOGIC;
-    rstb : IN STD_LOGIC;
     enb : IN STD_LOGIC;
-    web : IN STD_LOGIC_VECTOR(3 DOWNTO 0);
-    addrb : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
-    dinb : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
-    doutb : OUT STD_LOGIC_VECTOR(31 DOWNTO 0);
-    rsta_busy : OUT STD_LOGIC;
-    rstb_busy : OUT STD_LOGIC 
+    web : IN STD_LOGIC;
+    addrb : IN STD_LOGIC_VECTOR(11 DOWNTO 0);
+    dinb : IN STD_LOGIC_VECTOR(7 DOWNTO 0);
+    doutb : OUT STD_LOGIC_VECTOR(7 DOWNTO 0)
   );
 END COMPONENT;
 
 signal clk, resetn, reset, go: std_logic := '0';
+signal ena, wea, rsta : std_logic;
+signal dina, douta : std_logic_vector(7 downto 0);
+signal addra : std_logic_vector(11 downto 0);
 
 signal s00_axi_wdata	: std_logic_vector(31 downto 0);
 signal s00_axi_awaddr	: std_logic_vector(4 downto 0);
@@ -115,24 +142,20 @@ constant clk_period : time := 10 ns;
 
 begin
 
-blk_mem_inst : blk_mem_dp_32_1024
+blk_mem_inst : blk_mem_gen_0
   port map (
-    clka => '0',
-    rsta => '0',
-    ena => '0',
-    wea => (others => '0'),
-    addra => (others => '0'),
+    clka => clk,
+    ena => ena,
+    wea => wea,
+    addra => addra,
     dina => (others => '0'),
     douta => open, -- Assuming douta is an output and not used in this context
     clkb => '0',
-    rstb => '0',
     enb => '0',
-    web => (others => '0'),
+    web => '0',
     addrb => (others => '0'),
     dinb => (others => '0'),
-    doutb => open, -- Assuming doutb is an output and not used in this context
-    rsta_busy => open, -- Assuming rsta_busy is an output and not used in this context
-    rstb_busy => open  -- Assuming rstb_busy is an output and not used in this context
+    doutb => open -- Assuming doutb is an output and not used in this context
   );
 	
 inst_matmul_v1_0: matmul_0
@@ -161,8 +184,15 @@ inst_matmul_v1_0: matmul_0
         s00_axis_tstrb     => s00_axis_tstrb,
         s00_axis_tlast     => s00_axis_tlast,
         s00_axis_tvalid    => s00_axis_tvalid,
-
-        m00_axis_tready    => m00_axis_tready
+        m00_axis_tready    => m00_axis_tready,
+        
+        addra => addra,
+        clka => clk,
+        dina => dina,
+        douta => douta,
+        ena => ena,
+        rsta => rsta,
+        wea => wea
     );
 
 clk_process :process

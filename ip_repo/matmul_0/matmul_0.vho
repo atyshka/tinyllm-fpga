@@ -46,13 +46,20 @@
 -- 
 -- DO NOT MODIFY THIS FILE.
 -- IP VLNV: xilinx.com:user:matmul:1.0
--- IP Revision: 8
+-- IP Revision: 11
 
 -- The following code must appear in the VHDL architecture header.
 
 ------------- Begin Cut here for COMPONENT Declaration ------ COMP_TAG
 COMPONENT matmul_0
   PORT (
+    addra : OUT STD_LOGIC_VECTOR(11 DOWNTO 0);
+    clka : OUT STD_LOGIC;
+    dina : OUT STD_LOGIC_VECTOR(7 DOWNTO 0);
+    douta : IN STD_LOGIC_VECTOR(7 DOWNTO 0);
+    ena : OUT STD_LOGIC;
+    rsta : OUT STD_LOGIC;
+    wea : OUT STD_LOGIC;
     s00_axi_aclk : IN STD_LOGIC;
     s00_axi_aresetn : IN STD_LOGIC;
     s00_axi_awaddr : IN STD_LOGIC_VECTOR(4 DOWNTO 0);
@@ -96,6 +103,13 @@ END COMPONENT;
 ------------- Begin Cut here for INSTANTIATION Template ----- INST_TAG
 your_instance_name : matmul_0
   PORT MAP (
+    addra => addra,
+    clka => clka,
+    dina => dina,
+    douta => douta,
+    ena => ena,
+    rsta => rsta,
+    wea => wea,
     s00_axi_aclk => s00_axi_aclk,
     s00_axi_aresetn => s00_axi_aresetn,
     s00_axi_awaddr => s00_axi_awaddr,

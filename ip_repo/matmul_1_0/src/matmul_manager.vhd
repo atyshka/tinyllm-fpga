@@ -82,6 +82,8 @@ signal acc_out, output_reg: std_logic_vector(OUTPUT_TDATA_WIDTH-1 downto 0) := (
 signal count, next_count: unsigned(15 downto 0) := to_unsigned(0, 16);
 --signal fake_bram: unsigned(15 downto 0) := to_unsigned(0, 16);
 
+--constant BRAM_START_ADDR : std_logic_vector(BRAM_ADDR_WIDTH-1 downto 0) := x"000";
+
 begin
 
 macc: macc_dsp port map(
@@ -103,6 +105,7 @@ m00_axis_tdata <= output_reg;
 m00_axis_tlast <= '1' when state = done else '0';
 next_count <= (others => '0') when (state = idle or state = done or count = length-1) else count + 1;
 bram_en <= '1' when (state = idle or s00_axis_tvalid = '1') else '0';
+bram_addr <= std_logic_vector(next_count(11 downto 0));
 
 process (s00_axis_aclk)
 begin

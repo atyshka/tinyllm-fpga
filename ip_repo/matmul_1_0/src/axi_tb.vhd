@@ -38,6 +38,13 @@ end axi_tb;
 architecture Behavioral of axi_tb is
 component matmul_v1_0 is
 	generic (
+		-- Users to add parameters here
+        BRAM_DATA_WIDTH	: integer	:= 8;
+        BRAM_ADDR_WIDTH	: integer	:= 12;
+		-- User parameters ends
+		-- Do not modify the parameters beyond this line
+
+
 		-- Parameters of Axi Slave Bus Interface S00_AXI
 		C_S00_AXI_DATA_WIDTH	: integer	:= 32;
 		C_S00_AXI_ADDR_WIDTH	: integer	:= 5;
@@ -50,7 +57,13 @@ component matmul_v1_0 is
 	);
 	port (
 		-- Users to add ports here
-
+        addra : out std_logic_vector(BRAM_ADDR_WIDTH-1 downto 0);
+        clka : out std_logic;
+        dina : out std_logic_vector(BRAM_DATA_WIDTH-1 downto 0);
+        douta : in std_logic_vector(BRAM_DATA_WIDTH-1 downto 0);
+        ena : out std_logic;
+        rsta : out std_logic;
+        wea : out std_logic;
 		-- User ports ends
 		-- Do not modify the ports beyond this line
 
@@ -110,6 +123,9 @@ end component;
 --  );
 --END COMPONENT;
 
+constant BRAM_DATA_WIDTH	: integer	:= 8;
+constant BRAM_ADDR_WIDTH	: integer	:= 12;
+
 signal clk, resetn, reset, go: std_logic := '0';
 
 signal s00_axi_wdata	: std_logic_vector(31 downto 0);
@@ -126,8 +142,12 @@ signal m00_axis_tready: std_logic := '0';
 signal s00_axis_tdata	: std_logic_vector(31 downto 0) := (others => '0');
 signal s00_axis_tstrb	: std_logic_vector(3 downto 0) := (others => '0');
 
-constant clk_period : time := 10 ns;
+signal douta, dina : std_logic_vector(BRAM_DATA_WIDTH-1 downto 0);
+signal addra : std_logic_vector(BRAM_ADDR_WIDTH-1 downto 0);
+signal ena, rsta : std_logic;
+signal wea : std_logic;
 
+constant clk_period : time := 10 ns;
 begin
 
 --mm: matmul_v1_0 port map (
@@ -204,8 +224,15 @@ inst_matmul_v1_0: matmul_v1_0
         s00_axis_tstrb     => s00_axis_tstrb,
         s00_axis_tlast     => s00_axis_tlast,
         s00_axis_tvalid    => s00_axis_tvalid,
-
-        m00_axis_tready    => m00_axis_tready
+        m00_axis_tready    => m00_axis_tready,
+        
+        addra => addra,
+        clka => clk,
+        dina => dina,
+        douta => douta,
+        ena => ena,
+        rsta => rsta,
+        wea => wea
     );
 
 clk_process :process

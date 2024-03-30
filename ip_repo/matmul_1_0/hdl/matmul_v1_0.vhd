@@ -5,7 +5,8 @@ use ieee.numeric_std.all;
 entity matmul_v1_0 is
 	generic (
 		-- Users to add parameters here
-
+        BRAM_DATA_WIDTH	: integer	:= 8;
+        BRAM_ADDR_WIDTH	: integer	:= 12;
 		-- User parameters ends
 		-- Do not modify the parameters beyond this line
 
@@ -22,7 +23,13 @@ entity matmul_v1_0 is
 	);
 	port (
 		-- Users to add ports here
-
+        addra : out std_logic_vector(BRAM_ADDR_WIDTH-1 downto 0);
+        clka : out std_logic;
+        dina : out std_logic_vector(BRAM_DATA_WIDTH-1 downto 0);
+        douta : in std_logic_vector(BRAM_DATA_WIDTH-1 downto 0);
+        ena : out std_logic;
+        rsta : out std_logic;
+        wea : out std_logic;
 		-- User ports ends
 		-- Do not modify the ports beyond this line
 
@@ -130,7 +137,8 @@ architecture arch_imp of matmul_v1_0 is
       m00_axis_tready	: in std_logic;
 		
       bram_din: in std_logic_vector(BRAM_DATA_WIDTH-1 downto 0);
-      bram_addr: out std_logic_vector(BRAM_ADDR_WIDTH-1 downto 0)
+      bram_addr: out std_logic_vector(BRAM_ADDR_WIDTH-1 downto 0);
+      bram_en: out std_logic
     );
   end component;
 
@@ -188,9 +196,15 @@ matmul_inst : matmul_manager
     m00_axis_tdata => m00_axis_tdata,
     m00_axis_tlast => m00_axis_tlast,
     m00_axis_tready => m00_axis_tready,
-		bram_din => x"01"
+    bram_din => douta,
+	bram_addr => addra,
+	bram_en => ena	
   );
 
 m00_axis_tstrb <= (others => '1');
+clka <= s00_axi_aclk;
+dina <= (others => '0');
+rsta <= '0';
+wea <= '0';
 
 end arch_imp;
