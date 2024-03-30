@@ -44,7 +44,7 @@ port (
     douta : in std_logic_vector(7 downto 0);
     ena : out std_logic;
     rsta : out std_logic;
-    wea : out std_logic;
+    wea : out std_logic_vector(3 downto 0);
     s00_axi_aclk : IN STD_LOGIC;
     s00_axi_aresetn : IN STD_LOGIC;
     s00_axi_awaddr : IN STD_LOGIC_VECTOR(4 DOWNTO 0);
@@ -81,50 +81,34 @@ port (
 	);
 end component;
 
---COMPONENT blk_mem_dp_32_1024
---  PORT (
---    clka : IN STD_LOGIC;
---    rsta : IN STD_LOGIC;
---    ena : IN STD_LOGIC;
---    wea : IN STD_LOGIC_VECTOR(3 DOWNTO 0);
---    addra : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
---    dina : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
---    douta : OUT STD_LOGIC_VECTOR(31 DOWNTO 0);
---    clkb : IN STD_LOGIC;
---    rstb : IN STD_LOGIC;
---    enb : IN STD_LOGIC;
---    web : IN STD_LOGIC_VECTOR(3 DOWNTO 0);
---    addrb : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
---    dinb : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
---    doutb : OUT STD_LOGIC_VECTOR(31 DOWNTO 0);
---    rsta_busy : OUT STD_LOGIC;
---    rstb_busy : OUT STD_LOGIC 
---  );
---END COMPONENT;
-
-COMPONENT blk_mem_gen_0
+COMPONENT blk_mem_dp_32_1024
   PORT (
     clka : IN STD_LOGIC;
+    rsta : IN STD_LOGIC;
     ena : IN STD_LOGIC;
-    wea : IN STD_LOGIC;
-    addra : IN STD_LOGIC_VECTOR(11 DOWNTO 0);
-    dina : IN STD_LOGIC_VECTOR(7 DOWNTO 0);
-    douta : OUT STD_LOGIC_VECTOR(7 DOWNTO 0);
+    wea : IN STD_LOGIC_VECTOR(3 DOWNTO 0);
+    addra : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
+    dina : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
+    douta : OUT STD_LOGIC_VECTOR(31 DOWNTO 0);
     clkb : IN STD_LOGIC;
+    rstb : IN STD_LOGIC;
     enb : IN STD_LOGIC;
-    web : IN STD_LOGIC;
-    addrb : IN STD_LOGIC_VECTOR(11 DOWNTO 0);
-    dinb : IN STD_LOGIC_VECTOR(7 DOWNTO 0);
-    doutb : OUT STD_LOGIC_VECTOR(7 DOWNTO 0)
+    web : IN STD_LOGIC_VECTOR(3 DOWNTO 0);
+    addrb : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
+    dinb : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
+    doutb : OUT STD_LOGIC_VECTOR(31 DOWNTO 0);
+    rsta_busy : OUT STD_LOGIC;
+    rstb_busy : OUT STD_LOGIC 
   );
 END COMPONENT;
 
 signal clk, resetn, reset, go: std_logic := '0';
-signal ena, wea, rsta : std_logic;
-signal dina, douta : std_logic_vector(7 downto 0);
+signal ena, rsta : std_logic;
+signal wea: std_logic_vector(3 downto 0);
+signal dina : std_logic_vector(7 downto 0);
 signal addra : std_logic_vector(11 downto 0);
 
-signal s00_axi_wdata	: std_logic_vector(31 downto 0);
+signal s00_axi_wdata, douta	: std_logic_vector(31 downto 0);
 signal s00_axi_awaddr	: std_logic_vector(4 downto 0);
 signal s00_axi_awvalid, 
         s00_axi_wvalid, 
@@ -142,17 +126,21 @@ constant clk_period : time := 10 ns;
 
 begin
 
-blk_mem_inst : blk_mem_gen_0
+blk_mem_inst : blk_mem_dp_32_1024
   port map (
+    rsta => rsta,
     clka => clk,
     ena => ena,
     wea => wea,
-    addra => addra,
-    dina => (others => '0'),
-    douta => open, -- Assuming douta is an output and not used in this context
+    addra(11 downto 0) => addra,
+    addra(31 downto 12) => (others => '0'),
+    dina(7 downto 0) => dina,
+    dina(31 downto 8) => (others => '0'),
+    douta => douta, -- Assuming douta is an output and not used in this context
+    rstb => rsta,
     clkb => '0',
     enb => '0',
-    web => '0',
+    web => "0000",
     addrb => (others => '0'),
     dinb => (others => '0'),
     doutb => open -- Assuming doutb is an output and not used in this context
@@ -187,9 +175,8 @@ inst_matmul_v1_0: matmul_0
         m00_axis_tready    => m00_axis_tready,
         
         addra => addra,
-        clka => clk,
         dina => dina,
-        douta => douta,
+        douta => douta(7 downto 0),
         ena => ena,
         rsta => rsta,
         wea => wea

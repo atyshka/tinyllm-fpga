@@ -23,13 +23,13 @@ entity matmul_v1_0 is
 	);
 	port (
 		-- Users to add ports here
-        addra : out std_logic_vector(BRAM_ADDR_WIDTH-1 downto 0);
-        clka : out std_logic;
-        dina : out std_logic_vector(BRAM_DATA_WIDTH-1 downto 0);
-        douta : in std_logic_vector(BRAM_DATA_WIDTH-1 downto 0);
-        ena : out std_logic;
-        rsta : out std_logic;
-        wea : out std_logic;
+    addra : out std_logic_vector(BRAM_ADDR_WIDTH-1 downto 0);
+    clka : out std_logic;
+    dina : out std_logic_vector(BRAM_DATA_WIDTH-1 downto 0);
+    douta : in std_logic_vector(BRAM_DATA_WIDTH-1 downto 0);
+    ena : out std_logic;
+    rsta : out std_logic;
+    wea : out std_logic_vector(3 downto 0);
 		-- User ports ends
 		-- Do not modify the ports beyond this line
 
@@ -205,6 +205,6 @@ m00_axis_tstrb <= (others => '1');
 clka <= s00_axi_aclk;
 dina <= (others => '0');
 rsta <= '0';
-wea <= '0';
+wea <= "0000";
 
 end arch_imp;

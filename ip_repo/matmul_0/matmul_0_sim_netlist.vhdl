@@ -2,10 +2,10 @@
 -- Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 -- --------------------------------------------------------------------------------
 -- Tool Version: Vivado v.2023.2 (win64) Build 4029153 Fri Oct 13 20:14:34 MDT 2023
--- Date        : Fri Mar 29 21:01:22 2024
--- Host        : MaxLaptop running 64-bit major release  (build 9200)
+-- Date        : Sat Mar 30 12:57:15 2024
+-- Host        : DESKTOP-KJ6L8EK running 64-bit major release  (build 9200)
 -- Command     : write_vhdl -force -mode funcsim
---               c:/Users/Max/Desktop/tinyllm-fpga/ip_repo/matmul_0/matmul_0_sim_netlist.vhdl
+--               c:/Users/Administrator/Documents/tinyllm-fpga/ip_repo/matmul_0/matmul_0_sim_netlist.vhdl
 -- Design      : matmul_0
 -- Purpose     : This VHDL netlist is a functional simulation representation of the design and should not be modified or
 --               synthesized. This netlist cannot be used for SDF annotated simulation.
@@ -6487,7 +6487,7 @@ entity matmul_0 is
     douta : in STD_LOGIC_VECTOR ( 7 downto 0 );
     ena : out STD_LOGIC;
     rsta : out STD_LOGIC;
-    wea : out STD_LOGIC;
+    wea : out STD_LOGIC_VECTOR ( 3 downto 0 );
     s00_axi_aclk : in STD_LOGIC;
     s00_axi_aresetn : in STD_LOGIC;
     s00_axi_awaddr : in STD_LOGIC_VECTOR ( 4 downto 0 );
@@ -6567,9 +6567,8 @@ architecture STRUCTURE of matmul_0 is
   attribute x_interface_info of s00_axis_tready : signal is "xilinx.com:interface:axis:1.0 S00_AXIS TREADY";
   attribute x_interface_parameter of s00_axis_tready : signal is "XIL_INTERFACENAME S00_AXIS, WIZ_DATA_WIDTH 32, TDATA_NUM_BYTES 1, TDEST_WIDTH 0, TID_WIDTH 0, TUSER_WIDTH 0, HAS_TREADY 1, HAS_TSTRB 1, HAS_TKEEP 0, HAS_TLAST 1, FREQ_HZ 100000000, PHASE 0.0, LAYERED_METADATA undef, INSERT_VIP 0";
   attribute x_interface_info of s00_axis_tvalid : signal is "xilinx.com:interface:axis:1.0 S00_AXIS TVALID";
-  attribute x_interface_info of wea : signal is "xilinx.com:interface:bram:1.0 bram WE";
   attribute x_interface_info of addra : signal is "xilinx.com:interface:bram:1.0 bram ADDR";
-  attribute x_interface_parameter of addra : signal is "XIL_INTERFACENAME bram, MEM_SIZE 8192, MEM_WIDTH 32, MEM_ECC NONE, MASTER_TYPE OTHER, READ_LATENCY 1";
+  attribute x_interface_parameter of addra : signal is "XIL_INTERFACENAME bram, MEM_SIZE 4096, MEM_WIDTH 32, MEM_ECC NONE, MASTER_TYPE OTHER, READ_LATENCY 1";
   attribute x_interface_info of dina : signal is "xilinx.com:interface:bram:1.0 bram DIN";
   attribute x_interface_info of douta : signal is "xilinx.com:interface:bram:1.0 bram DOUT";
   attribute x_interface_info of m00_axis_tdata : signal is "xilinx.com:interface:axis:1.0 M00_AXIS TDATA";
@@ -6586,6 +6585,7 @@ architecture STRUCTURE of matmul_0 is
   attribute x_interface_info of s00_axi_wstrb : signal is "xilinx.com:interface:aximm:1.0 S00_AXI WSTRB";
   attribute x_interface_info of s00_axis_tdata : signal is "xilinx.com:interface:axis:1.0 S00_AXIS TDATA";
   attribute x_interface_info of s00_axis_tstrb : signal is "xilinx.com:interface:axis:1.0 S00_AXIS TSTRB";
+  attribute x_interface_info of wea : signal is "xilinx.com:interface:bram:1.0 bram WE";
 begin
   \^s00_axi_aclk\ <= s00_axi_aclk;
   clka <= \^s00_axi_aclk\;
@@ -6606,7 +6606,10 @@ begin
   s00_axi_bresp(0) <= \<const0>\;
   s00_axi_rresp(1) <= \<const0>\;
   s00_axi_rresp(0) <= \<const0>\;
-  wea <= \<const0>\;
+  wea(3) <= \<const0>\;
+  wea(2) <= \<const0>\;
+  wea(1) <= \<const0>\;
+  wea(0) <= \<const0>\;
 GND: unisim.vcomponents.GND
      port map (
       G => \<const0>\

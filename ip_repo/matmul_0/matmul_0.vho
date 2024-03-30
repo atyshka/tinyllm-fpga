@@ -46,7 +46,7 @@
 -- 
 -- DO NOT MODIFY THIS FILE.
 -- IP VLNV: xilinx.com:user:matmul:1.0
--- IP Revision: 11
+-- IP Revision: 13
 
 -- The following code must appear in the VHDL architecture header.
 
@@ -59,7 +59,7 @@ COMPONENT matmul_0
     douta : IN STD_LOGIC_VECTOR(7 DOWNTO 0);
     ena : OUT STD_LOGIC;
     rsta : OUT STD_LOGIC;
-    wea : OUT STD_LOGIC;
+    wea : OUT STD_LOGIC_VECTOR(3 DOWNTO 0);
     s00_axi_aclk : IN STD_LOGIC;
     s00_axi_aresetn : IN STD_LOGIC;
     s00_axi_awaddr : IN STD_LOGIC_VECTOR(4 DOWNTO 0);

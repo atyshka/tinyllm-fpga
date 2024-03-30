@@ -2,10 +2,10 @@
 // Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2023.2 (win64) Build 4029153 Fri Oct 13 20:14:34 MDT 2023
-// Date        : Fri Mar 29 21:01:22 2024
-// Host        : MaxLaptop running 64-bit major release  (build 9200)
+// Date        : Sat Mar 30 12:57:15 2024
+// Host        : DESKTOP-KJ6L8EK running 64-bit major release  (build 9200)
 // Command     : write_verilog -force -mode funcsim
-//               c:/Users/Max/Desktop/tinyllm-fpga/ip_repo/matmul_0/matmul_0_sim_netlist.v
+//               c:/Users/Administrator/Documents/tinyllm-fpga/ip_repo/matmul_0/matmul_0_sim_netlist.v
 // Design      : matmul_0
 // Purpose     : This verilog netlist is a functional simulation representation of the design and should not be modified
 //               or synthesized. This netlist cannot be used for SDF annotated simulation.
@@ -56,13 +56,13 @@ module matmul_0
     m00_axis_tstrb,
     m00_axis_tlast,
     m00_axis_tready);
-  (* x_interface_info = "xilinx.com:interface:bram:1.0 bram ADDR" *) (* x_interface_parameter = "XIL_INTERFACENAME bram, MEM_SIZE 8192, MEM_WIDTH 32, MEM_ECC NONE, MASTER_TYPE OTHER, READ_LATENCY 1" *) output [11:0]addra;
+  (* x_interface_info = "xilinx.com:interface:bram:1.0 bram ADDR" *) (* x_interface_parameter = "XIL_INTERFACENAME bram, MEM_SIZE 4096, MEM_WIDTH 32, MEM_ECC NONE, MASTER_TYPE OTHER, READ_LATENCY 1" *) output [11:0]addra;
   (* x_interface_info = "xilinx.com:interface:bram:1.0 bram CLK" *) output clka;
   (* x_interface_info = "xilinx.com:interface:bram:1.0 bram DIN" *) output [7:0]dina;
   (* x_interface_info = "xilinx.com:interface:bram:1.0 bram DOUT" *) input [7:0]douta;
   (* x_interface_info = "xilinx.com:interface:bram:1.0 bram EN" *) output ena;
   (* x_interface_info = "xilinx.com:interface:bram:1.0 bram RST" *) output rsta;
-  (* x_interface_info = "xilinx.com:interface:bram:1.0 bram WE" *) output wea;
+  (* x_interface_info = "xilinx.com:interface:bram:1.0 bram WE" *) output [3:0]wea;
   (* x_interface_info = "xilinx.com:signal:clock:1.0 S00_AXI_CLK CLK" *) (* x_interface_parameter = "XIL_INTERFACENAME S00_AXI_CLK, ASSOCIATED_BUSIF S00_AXI, ASSOCIATED_RESET s00_axi_aresetn, FREQ_HZ 100000000, FREQ_TOLERANCE_HZ 0, PHASE 0.0, INSERT_VIP 0" *) input s00_axi_aclk;
   (* x_interface_info = "xilinx.com:signal:reset:1.0 S00_AXI_RST RST" *) (* x_interface_parameter = "XIL_INTERFACENAME S00_AXI_RST, POLARITY ACTIVE_LOW, INSERT_VIP 0" *) input s00_axi_aresetn;
   (* x_interface_info = "xilinx.com:interface:aximm:1.0 S00_AXI AWADDR" *) (* x_interface_parameter = "XIL_INTERFACENAME S00_AXI, WIZ_DATA_WIDTH 32, WIZ_NUM_REG 8, SUPPORTS_NARROW_BURST 0, DATA_WIDTH 32, PROTOCOL AXI4LITE, FREQ_HZ 100000000, ID_WIDTH 0, ADDR_WIDTH 5, AWUSER_WIDTH 0, ARUSER_WIDTH 0, WUSER_WIDTH 0, RUSER_WIDTH 0, BUSER_WIDTH 0, READ_WRITE_MODE READ_WRITE, HAS_BURST 0, HAS_LOCK 0, HAS_PROT 1, HAS_CACHE 0, HAS_QOS 0, HAS_REGION 0, HAS_WSTRB 1, HAS_BRESP 1, HAS_RRESP 1, NUM_READ_OUTSTANDING 1, NUM_WRITE_OUTSTANDING 1, MAX_BURST_LENGTH 1, PHASE 0.0, NUM_READ_THREADS 1, NUM_WRITE_THREADS 1, RUSER_BITS_PER_BYTE 0, WUSER_BITS_PER_BYTE 0, INSERT_VIP 0" *) input [4:0]s00_axi_awaddr;
@@ -148,7 +148,10 @@ module matmul_0
   assign s00_axi_bresp[0] = \<const0> ;
   assign s00_axi_rresp[1] = \<const0> ;
   assign s00_axi_rresp[0] = \<const0> ;
-  assign wea = \<const0> ;
+  assign wea[3] = \<const0> ;
+  assign wea[2] = \<const0> ;
+  assign wea[1] = \<const0> ;
+  assign wea[0] = \<const0> ;
   GND GND
        (.G(\<const0> ));
   matmul_0_matmul_v1_0 U0

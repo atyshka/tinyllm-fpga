@@ -47,7 +47,7 @@
 // DO NOT MODIFY THIS FILE.
 
 // IP VLNV: xilinx.com:user:matmul:1.0
-// IP Revision: 11
+// IP Revision: 13
 
 // The following must be inserted into your Verilog file for this
 // core to be instantiated. Change the instance name and port connections
@@ -61,7 +61,7 @@ matmul_0 your_instance_name (
   .douta(douta),                      // input wire [7 : 0] douta
   .ena(ena),                          // output wire ena
   .rsta(rsta),                        // output wire rsta
-  .wea(wea),                          // output wire wea
+  .wea(wea),                          // output wire [3 : 0] wea
   .s00_axi_aclk(s00_axi_aclk),        // input wire s00_axi_aclk
   .s00_axi_aresetn(s00_axi_aresetn),  // input wire s00_axi_aresetn
   .s00_axi_awaddr(s00_axi_awaddr),    // input wire [4 : 0] s00_axi_awaddr
