@@ -20,15 +20,6 @@ proc validate_PARAM_VALUE.BRAM_ADDR_WIDTH { PARAM_VALUE.BRAM_ADDR_WIDTH } {
 	return true
 }
 
-proc update_PARAM_VALUE.BRAM_DATA_WIDTH { PARAM_VALUE.BRAM_DATA_WIDTH } {
-	# Procedure called to update BRAM_DATA_WIDTH when any of the dependent parameters in the arguments change
-}
-
-proc validate_PARAM_VALUE.BRAM_DATA_WIDTH { PARAM_VALUE.BRAM_DATA_WIDTH } {
-	# Procedure called to validate BRAM_DATA_WIDTH
-	return true
-}
-
 proc update_PARAM_VALUE.OUTPUT_TDATA_WIDTH { PARAM_VALUE.OUTPUT_TDATA_WIDTH } {
 	# Procedure called to update OUTPUT_TDATA_WIDTH when any of the dependent parameters in the arguments change
 }
@@ -102,11 +93,6 @@ proc update_MODELPARAM_VALUE.WEIGHT_TDATA_WIDTH { MODELPARAM_VALUE.WEIGHT_TDATA_
 proc update_MODELPARAM_VALUE.OUTPUT_TDATA_WIDTH { MODELPARAM_VALUE.OUTPUT_TDATA_WIDTH PARAM_VALUE.OUTPUT_TDATA_WIDTH } {
 	# Procedure called to set VHDL generic/Verilog parameter value(s) based on TCL parameter value
 	set_property value [get_property value ${PARAM_VALUE.OUTPUT_TDATA_WIDTH}] ${MODELPARAM_VALUE.OUTPUT_TDATA_WIDTH}
-}
-
-proc update_MODELPARAM_VALUE.BRAM_DATA_WIDTH { MODELPARAM_VALUE.BRAM_DATA_WIDTH PARAM_VALUE.BRAM_DATA_WIDTH } {
-	# Procedure called to set VHDL generic/Verilog parameter value(s) based on TCL parameter value
-	set_property value [get_property value ${PARAM_VALUE.BRAM_DATA_WIDTH}] ${MODELPARAM_VALUE.BRAM_DATA_WIDTH}
 }
 
 proc update_MODELPARAM_VALUE.BRAM_ADDR_WIDTH { MODELPARAM_VALUE.BRAM_ADDR_WIDTH PARAM_VALUE.BRAM_ADDR_WIDTH } {

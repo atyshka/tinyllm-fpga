@@ -47,7 +47,7 @@
 -- DO NOT MODIFY THIS FILE.
 
 -- IP VLNV: xilinx.com:user:matmul:1.0
--- IP Revision: 13
+-- IP Revision: 15
 
 LIBRARY ieee;
 USE ieee.std_logic_1164.ALL;
@@ -57,8 +57,8 @@ ENTITY matmul_0 IS
   PORT (
     addra : OUT STD_LOGIC_VECTOR(11 DOWNTO 0);
     clka : OUT STD_LOGIC;
-    dina : OUT STD_LOGIC_VECTOR(7 DOWNTO 0);
-    douta : IN STD_LOGIC_VECTOR(7 DOWNTO 0);
+    dina : OUT STD_LOGIC_VECTOR(31 DOWNTO 0);
+    douta : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
     ena : OUT STD_LOGIC;
     rsta : OUT STD_LOGIC;
     wea : OUT STD_LOGIC_VECTOR(3 DOWNTO 0);
@@ -107,14 +107,13 @@ ARCHITECTURE matmul_0_arch OF matmul_0 IS
       C_S00_AXI_ADDR_WIDTH : INTEGER;
       WEIGHT_TDATA_WIDTH : INTEGER;
       OUTPUT_TDATA_WIDTH : INTEGER;
-      BRAM_DATA_WIDTH : INTEGER;
       BRAM_ADDR_WIDTH : INTEGER
     );
     PORT (
       addra : OUT STD_LOGIC_VECTOR(11 DOWNTO 0);
       clka : OUT STD_LOGIC;
-      dina : OUT STD_LOGIC_VECTOR(7 DOWNTO 0);
-      douta : IN STD_LOGIC_VECTOR(7 DOWNTO 0);
+      dina : OUT STD_LOGIC_VECTOR(31 DOWNTO 0);
+      douta : IN STD_LOGIC_VECTOR(31 DOWNTO 0);
       ena : OUT STD_LOGIC;
       rsta : OUT STD_LOGIC;
       wea : OUT STD_LOGIC_VECTOR(3 DOWNTO 0);
@@ -211,7 +210,6 @@ BEGIN
       C_S00_AXI_ADDR_WIDTH => 5,
       WEIGHT_TDATA_WIDTH => 8,
       OUTPUT_TDATA_WIDTH => 32,
-      BRAM_DATA_WIDTH => 8,
       BRAM_ADDR_WIDTH => 12
     )
     PORT MAP (

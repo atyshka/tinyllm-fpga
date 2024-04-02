@@ -2,7 +2,7 @@
 // Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2023.2 (win64) Build 4029153 Fri Oct 13 20:14:34 MDT 2023
-// Date        : Sat Mar 30 12:57:15 2024
+// Date        : Mon Apr  1 23:17:04 2024
 // Host        : DESKTOP-KJ6L8EK running 64-bit major release  (build 9200)
 // Command     : write_verilog -force -mode synth_stub
 //               c:/Users/Administrator/Documents/tinyllm-fpga/ip_repo/matmul_0/matmul_0_stub.v
@@ -23,14 +23,14 @@ module matmul_0(addra, clka, dina, douta, ena, rsta, wea, s00_axi_aclk,
   axis_aresetn, s00_axis_tready, s00_axis_tdata, s00_axis_tstrb, s00_axis_tlast, 
   s00_axis_tvalid, m00_axis_tvalid, m00_axis_tdata, m00_axis_tstrb, m00_axis_tlast, 
   m00_axis_tready)
-/* synthesis syn_black_box black_box_pad_pin="addra[11:0],dina[7:0],douta[7:0],ena,rsta,wea[3:0],s00_axi_aresetn,s00_axi_awaddr[4:0],s00_axi_awprot[2:0],s00_axi_awvalid,s00_axi_awready,s00_axi_wdata[31:0],s00_axi_wstrb[3:0],s00_axi_wvalid,s00_axi_wready,s00_axi_bresp[1:0],s00_axi_bvalid,s00_axi_bready,s00_axi_araddr[4:0],s00_axi_arprot[2:0],s00_axi_arvalid,s00_axi_arready,s00_axi_rdata[31:0],s00_axi_rresp[1:0],s00_axi_rvalid,s00_axi_rready,axis_aresetn,s00_axis_tready,s00_axis_tdata[7:0],s00_axis_tstrb[0:0],s00_axis_tlast,s00_axis_tvalid,m00_axis_tvalid,m00_axis_tdata[31:0],m00_axis_tstrb[3:0],m00_axis_tlast,m00_axis_tready" */
+/* synthesis syn_black_box black_box_pad_pin="addra[11:0],dina[31:0],douta[31:0],ena,rsta,wea[3:0],s00_axi_aresetn,s00_axi_awaddr[4:0],s00_axi_awprot[2:0],s00_axi_awvalid,s00_axi_awready,s00_axi_wdata[31:0],s00_axi_wstrb[3:0],s00_axi_wvalid,s00_axi_wready,s00_axi_bresp[1:0],s00_axi_bvalid,s00_axi_bready,s00_axi_araddr[4:0],s00_axi_arprot[2:0],s00_axi_arvalid,s00_axi_arready,s00_axi_rdata[31:0],s00_axi_rresp[1:0],s00_axi_rvalid,s00_axi_rready,axis_aresetn,s00_axis_tready,s00_axis_tdata[7:0],s00_axis_tstrb[0:0],s00_axis_tlast,s00_axis_tvalid,m00_axis_tvalid,m00_axis_tdata[31:0],m00_axis_tstrb[3:0],m00_axis_tlast,m00_axis_tready" */
 /* synthesis syn_force_seq_prim="clka" */
 /* synthesis syn_force_seq_prim="s00_axi_aclk" */
 /* synthesis syn_force_seq_prim="axis_aclk" */;
   output [11:0]addra;
   output clka /* synthesis syn_isclock = 1 */;
-  output [7:0]dina;
-  input [7:0]douta;
+  output [31:0]dina;
+  input [31:0]douta;
   output ena;
   output rsta;
   output [3:0]wea;

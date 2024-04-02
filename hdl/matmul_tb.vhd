@@ -40,8 +40,8 @@ component matmul_0 is
 port (
     addra : out std_logic_vector(11 downto 0);
     clka : out std_logic;
-    dina : out std_logic_vector(7 downto 0);
-    douta : in std_logic_vector(7 downto 0);
+    dina : out std_logic_vector(31 downto 0);
+    douta : in std_logic_vector(31 downto 0);
     ena : out std_logic;
     rsta : out std_logic;
     wea : out std_logic_vector(3 downto 0);
@@ -105,7 +105,7 @@ END COMPONENT;
 signal clk, resetn, reset, go: std_logic := '0';
 signal ena, rsta : std_logic;
 signal wea: std_logic_vector(3 downto 0);
-signal dina : std_logic_vector(7 downto 0);
+signal dina : std_logic_vector(31 downto 0);
 signal addra : std_logic_vector(11 downto 0);
 
 signal s00_axi_wdata, douta	: std_logic_vector(31 downto 0);
@@ -134,8 +134,7 @@ blk_mem_inst : blk_mem_dp_32_1024
     wea => wea,
     addra(11 downto 0) => addra,
     addra(31 downto 12) => (others => '0'),
-    dina(7 downto 0) => dina,
-    dina(31 downto 8) => (others => '0'),
+    dina => dina,
     douta => douta, -- Assuming douta is an output and not used in this context
     rstb => rsta,
     clkb => '0',
@@ -176,7 +175,7 @@ inst_matmul_v1_0: matmul_0
         
         addra => addra,
         dina => dina,
-        douta => douta(7 downto 0),
+        douta => douta,
         ena => ena,
         rsta => rsta,
         wea => wea
@@ -233,24 +232,24 @@ begin
     wait for 20ns;
     wait until rising_edge(clk);
     
-    for i in 0 to 31 loop
+    for i in -32 to -1 loop
       while s00_axis_tready /= '1' loop
         wait until rising_edge(clk);
       end loop;
       s00_axis_tvalid <= '1';
-      s00_axis_tdata <= std_logic_vector(to_unsigned(i, 8));
+      s00_axis_tdata <= std_logic_vector(to_signed(i, 8));
       wait until rising_edge(clk);
     end loop;
     s00_axis_tvalid <= '0';
     wait for 40ns;
     wait until rising_edge(clk);
-    for i in 32 to 63 loop
+    for i in 0 to 31 loop
       while s00_axis_tready /= '1' loop
         wait until rising_edge(clk);
       end loop;
       s00_axis_tvalid <= '1';
-      s00_axis_tdata <= std_logic_vector(to_unsigned(i, 8));
-      if i = 63 then
+      s00_axis_tdata <= std_logic_vector(to_signed(i, 8));
+      if i = 31 then
         s00_axis_tlast <= '1';
       end if;
       wait until rising_edge(clk);

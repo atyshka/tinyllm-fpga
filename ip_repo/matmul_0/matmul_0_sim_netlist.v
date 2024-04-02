@@ -2,7 +2,7 @@
 // Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2023.2 (win64) Build 4029153 Fri Oct 13 20:14:34 MDT 2023
-// Date        : Sat Mar 30 12:57:15 2024
+// Date        : Mon Apr  1 23:17:04 2024
 // Host        : DESKTOP-KJ6L8EK running 64-bit major release  (build 9200)
 // Command     : write_verilog -force -mode funcsim
 //               c:/Users/Administrator/Documents/tinyllm-fpga/ip_repo/matmul_0/matmul_0_sim_netlist.v
@@ -58,8 +58,8 @@ module matmul_0
     m00_axis_tready);
   (* x_interface_info = "xilinx.com:interface:bram:1.0 bram ADDR" *) (* x_interface_parameter = "XIL_INTERFACENAME bram, MEM_SIZE 4096, MEM_WIDTH 32, MEM_ECC NONE, MASTER_TYPE OTHER, READ_LATENCY 1" *) output [11:0]addra;
   (* x_interface_info = "xilinx.com:interface:bram:1.0 bram CLK" *) output clka;
-  (* x_interface_info = "xilinx.com:interface:bram:1.0 bram DIN" *) output [7:0]dina;
-  (* x_interface_info = "xilinx.com:interface:bram:1.0 bram DOUT" *) input [7:0]douta;
+  (* x_interface_info = "xilinx.com:interface:bram:1.0 bram DIN" *) output [31:0]dina;
+  (* x_interface_info = "xilinx.com:interface:bram:1.0 bram DOUT" *) input [31:0]douta;
   (* x_interface_info = "xilinx.com:interface:bram:1.0 bram EN" *) output ena;
   (* x_interface_info = "xilinx.com:interface:bram:1.0 bram RST" *) output rsta;
   (* x_interface_info = "xilinx.com:interface:bram:1.0 bram WE" *) output [3:0]wea;
@@ -102,7 +102,7 @@ module matmul_0
   wire [11:0]addra;
   wire axis_aclk;
   wire axis_aresetn;
-  wire [7:0]douta;
+  wire [31:0]douta;
   wire ena;
   wire [31:0]m00_axis_tdata;
   wire m00_axis_tlast;
@@ -131,6 +131,30 @@ module matmul_0
   wire s00_axis_tvalid;
 
   assign clka = s00_axi_aclk;
+  assign dina[31] = \<const0> ;
+  assign dina[30] = \<const0> ;
+  assign dina[29] = \<const0> ;
+  assign dina[28] = \<const0> ;
+  assign dina[27] = \<const0> ;
+  assign dina[26] = \<const0> ;
+  assign dina[25] = \<const0> ;
+  assign dina[24] = \<const0> ;
+  assign dina[23] = \<const0> ;
+  assign dina[22] = \<const0> ;
+  assign dina[21] = \<const0> ;
+  assign dina[20] = \<const0> ;
+  assign dina[19] = \<const0> ;
+  assign dina[18] = \<const0> ;
+  assign dina[17] = \<const0> ;
+  assign dina[16] = \<const0> ;
+  assign dina[15] = \<const0> ;
+  assign dina[14] = \<const0> ;
+  assign dina[13] = \<const0> ;
+  assign dina[12] = \<const0> ;
+  assign dina[11] = \<const0> ;
+  assign dina[10] = \<const0> ;
+  assign dina[9] = \<const0> ;
+  assign dina[8] = \<const0> ;
   assign dina[7] = \<const0> ;
   assign dina[6] = \<const0> ;
   assign dina[5] = \<const0> ;
@@ -192,62 +216,62 @@ endmodule
 (* ORIG_REF_NAME = "macc_dsp" *) 
 module matmul_0_macc_dsp
    (macc_en,
-    \count_reg[14] ,
-    \count_reg[10] ,
+    \count_reg[11] ,
+    \count_reg[13] ,
     \count_reg[3] ,
     accum_out,
     adder_out_reg_0,
     adder_out_reg_1,
     adder_out_reg_2,
     s00_axis_tvalid,
+    douta,
     adder_out_reg_3,
     adder_out_reg_4,
     adder_out_reg_5,
     adder_out_reg_6,
-    result_ready_i_2,
-    result_ready_i_2_0,
-    result_ready_i_2_1,
-    result_ready_i_2_2,
-    result_ready_i_2_3,
-    result_ready_i_2_4,
-    result_ready_i_2_5,
-    result_ready_i_2_6,
-    result_ready_i_2_7,
-    result_ready_i_2_8,
-    axis_aclk,
-    douta,
-    s00_axis_tdata,
     adder_out_reg_7,
     adder_out_reg_8,
+    \state[2]_i_4 ,
+    \state[2]_i_4_0 ,
+    \state[2]_i_4_1 ,
+    \state[2]_i_4_2 ,
+    \state[2]_i_4_3 ,
+    \state[2]_i_4_4 ,
+    \state[2]_i_4_5 ,
+    \state[2]_i_4_6 ,
+    \state[2]_i_4_7 ,
+    \state[2]_i_4_8 ,
+    axis_aclk,
+    s00_axis_tdata,
     adder_out_reg_9);
   output macc_en;
-  output \count_reg[14] ;
-  output \count_reg[10] ;
+  output \count_reg[11] ;
+  output \count_reg[13] ;
   output \count_reg[3] ;
   output [31:0]accum_out;
   input adder_out_reg_0;
   input adder_out_reg_1;
   input adder_out_reg_2;
   input s00_axis_tvalid;
+  input [31:0]douta;
   input adder_out_reg_3;
   input adder_out_reg_4;
   input adder_out_reg_5;
   input adder_out_reg_6;
-  input result_ready_i_2;
-  input result_ready_i_2_0;
-  input result_ready_i_2_1;
-  input result_ready_i_2_2;
-  input result_ready_i_2_3;
-  input result_ready_i_2_4;
-  input result_ready_i_2_5;
-  input result_ready_i_2_6;
-  input result_ready_i_2_7;
-  input result_ready_i_2_8;
-  input axis_aclk;
-  input [7:0]douta;
-  input [7:0]s00_axis_tdata;
   input adder_out_reg_7;
   input adder_out_reg_8;
+  input \state[2]_i_4 ;
+  input \state[2]_i_4_0 ;
+  input \state[2]_i_4_1 ;
+  input \state[2]_i_4_2 ;
+  input \state[2]_i_4_3 ;
+  input \state[2]_i_4_4 ;
+  input \state[2]_i_4_5 ;
+  input \state[2]_i_4_6 ;
+  input \state[2]_i_4_7 ;
+  input \state[2]_i_4_8 ;
+  input axis_aclk;
+  input [7:0]s00_axis_tdata;
   input adder_out_reg_9;
 
   wire [31:0]accum_out;
@@ -261,26 +285,27 @@ module matmul_0_macc_dsp
   wire adder_out_reg_7;
   wire adder_out_reg_8;
   wire adder_out_reg_9;
-  wire adder_out_reg_i_2_n_0;
+  wire adder_out_reg_i_10_n_0;
   wire axis_aclk;
-  wire \count_reg[10] ;
-  wire \count_reg[14] ;
+  wire [7:0]bram_8bit;
+  wire \count_reg[11] ;
+  wire \count_reg[13] ;
   wire \count_reg[3] ;
-  wire [7:0]douta;
+  wire [31:0]douta;
   wire macc_en;
-  wire result_ready_i_2;
-  wire result_ready_i_2_0;
-  wire result_ready_i_2_1;
-  wire result_ready_i_2_2;
-  wire result_ready_i_2_3;
-  wire result_ready_i_2_4;
-  wire result_ready_i_2_5;
-  wire result_ready_i_2_6;
-  wire result_ready_i_2_7;
-  wire result_ready_i_2_8;
   wire [7:0]s00_axis_tdata;
   wire s00_axis_tvalid;
   wire sload_reg;
+  wire \state[2]_i_4 ;
+  wire \state[2]_i_4_0 ;
+  wire \state[2]_i_4_1 ;
+  wire \state[2]_i_4_2 ;
+  wire \state[2]_i_4_3 ;
+  wire \state[2]_i_4_4 ;
+  wire \state[2]_i_4_5 ;
+  wire \state[2]_i_4_6 ;
+  wire \state[2]_i_4_7 ;
+  wire \state[2]_i_4_8 ;
   wire NLW_adder_out_reg_CARRYCASCOUT_UNCONNECTED;
   wire NLW_adder_out_reg_MULTSIGNOUT_UNCONNECTED;
   wire NLW_adder_out_reg_OVERFLOW_UNCONNECTED;
@@ -324,7 +349,7 @@ module matmul_0_macc_dsp
         .ACIN({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}),
         .ACOUT(NLW_adder_out_reg_ACOUT_UNCONNECTED[29:0]),
         .ALUMODE({1'b0,1'b0,1'b0,1'b0}),
-        .B({douta[7],douta[7],douta[7],douta[7],douta[7],douta[7],douta[7],douta[7],douta[7],douta[7],douta}),
+        .B({bram_8bit[7],bram_8bit[7],bram_8bit[7],bram_8bit[7],bram_8bit[7],bram_8bit[7],bram_8bit[7],bram_8bit[7],bram_8bit[7],bram_8bit[7],bram_8bit}),
         .BCIN({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}),
         .BCOUT(NLW_adder_out_reg_BCOUT_UNCONNECTED[17:0]),
         .C({1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0,1'b0}),
@@ -351,7 +376,7 @@ module matmul_0_macc_dsp
         .INMODE({1'b0,1'b0,1'b0,1'b0,1'b0}),
         .MULTSIGNIN(1'b0),
         .MULTSIGNOUT(NLW_adder_out_reg_MULTSIGNOUT_UNCONNECTED),
-        .OPMODE({1'b0,1'b1,adder_out_reg_i_2_n_0,1'b0,1'b1,1'b0,1'b1}),
+        .OPMODE({1'b0,1'b1,adder_out_reg_i_10_n_0,1'b0,1'b1,1'b0,1'b1}),
         .OVERFLOW(NLW_adder_out_reg_OVERFLOW_UNCONNECTED),
         .P({NLW_adder_out_reg_P_UNCONNECTED[47:32],accum_out}),
         .PATTERNBDETECT(NLW_adder_out_reg_PATTERNBDETECT_UNCONNECTED),
@@ -378,49 +403,129 @@ module matmul_0_macc_dsp
         .I3(s00_axis_tvalid),
         .O(macc_en));
   LUT6 #(
-    .INIT(64'h000DFFFF000D0000)) 
-    adder_out_reg_i_2
-       (.I0(adder_out_reg_7),
-        .I1(adder_out_reg_8),
-        .I2(\count_reg[14] ),
-        .I3(adder_out_reg_9),
+    .INIT(64'h00A2FFFF00A20000)) 
+    adder_out_reg_i_10
+       (.I0(\count_reg[11] ),
+        .I1(adder_out_reg_9),
+        .I2(adder_out_reg_4),
+        .I3(adder_out_reg_3),
         .I4(macc_en),
         .I5(sload_reg),
-        .O(adder_out_reg_i_2_n_0));
+        .O(adder_out_reg_i_10_n_0));
   LUT6 #(
-    .INIT(64'hFFFFFFFFFFFFFFFE)) 
+    .INIT(64'hFFCCF0AA00CCF0AA)) 
+    adder_out_reg_i_2
+       (.I0(douta[7]),
+        .I1(douta[15]),
+        .I2(douta[23]),
+        .I3(adder_out_reg_3),
+        .I4(adder_out_reg_4),
+        .I5(douta[31]),
+        .O(bram_8bit[7]));
+  LUT6 #(
+    .INIT(64'hFFAAF0CC00AAF0CC)) 
     adder_out_reg_i_3
-       (.I0(\count_reg[10] ),
-        .I1(adder_out_reg_3),
-        .I2(adder_out_reg_4),
-        .I3(adder_out_reg_5),
-        .I4(adder_out_reg_6),
+       (.I0(douta[14]),
+        .I1(douta[6]),
+        .I2(douta[22]),
+        .I3(adder_out_reg_3),
+        .I4(adder_out_reg_4),
+        .I5(douta[30]),
+        .O(bram_8bit[6]));
+  LUT6 #(
+    .INIT(64'hCCAAF0FFCCAAF000)) 
+    adder_out_reg_i_4
+       (.I0(douta[21]),
+        .I1(douta[29]),
+        .I2(douta[13]),
+        .I3(adder_out_reg_4),
+        .I4(adder_out_reg_3),
+        .I5(douta[5]),
+        .O(bram_8bit[5]));
+  LUT6 #(
+    .INIT(64'hCCFFAAF0CC00AAF0)) 
+    adder_out_reg_i_5
+       (.I0(douta[20]),
+        .I1(douta[28]),
+        .I2(douta[4]),
+        .I3(adder_out_reg_3),
+        .I4(adder_out_reg_4),
+        .I5(douta[12]),
+        .O(bram_8bit[4]));
+  LUT6 #(
+    .INIT(64'hFFCCF0AA00CCF0AA)) 
+    adder_out_reg_i_6
+       (.I0(douta[3]),
+        .I1(douta[11]),
+        .I2(douta[19]),
+        .I3(adder_out_reg_3),
+        .I4(adder_out_reg_4),
+        .I5(douta[27]),
+        .O(bram_8bit[3]));
+  LUT6 #(
+    .INIT(64'hCCFFAAF0CC00AAF0)) 
+    adder_out_reg_i_7
+       (.I0(douta[18]),
+        .I1(douta[26]),
+        .I2(douta[2]),
+        .I3(adder_out_reg_3),
+        .I4(adder_out_reg_4),
+        .I5(douta[10]),
+        .O(bram_8bit[2]));
+  LUT6 #(
+    .INIT(64'hFFCCF0AA00CCF0AA)) 
+    adder_out_reg_i_8
+       (.I0(douta[1]),
+        .I1(douta[9]),
+        .I2(douta[17]),
+        .I3(adder_out_reg_3),
+        .I4(adder_out_reg_4),
+        .I5(douta[25]),
+        .O(bram_8bit[1]));
+  LUT6 #(
+    .INIT(64'hFFCCF0AA00CCF0AA)) 
+    adder_out_reg_i_9
+       (.I0(douta[0]),
+        .I1(douta[8]),
+        .I2(douta[16]),
+        .I3(adder_out_reg_3),
+        .I4(adder_out_reg_4),
+        .I5(douta[24]),
+        .O(bram_8bit[0]));
+  LUT6 #(
+    .INIT(64'h0000000000000001)) 
+    \output_reg[31]_i_3 
+       (.I0(\count_reg[13] ),
+        .I1(adder_out_reg_5),
+        .I2(adder_out_reg_6),
+        .I3(adder_out_reg_7),
+        .I4(adder_out_reg_8),
         .I5(\count_reg[3] ),
-        .O(\count_reg[14] ));
+        .O(\count_reg[11] ));
   LUT6 #(
     .INIT(64'hFFFFFFFFFFFFFFFE)) 
     result_ready_i_3
-       (.I0(result_ready_i_2),
-        .I1(result_ready_i_2_0),
-        .I2(result_ready_i_2_1),
-        .I3(result_ready_i_2_2),
-        .I4(result_ready_i_2_3),
-        .I5(result_ready_i_2_4),
+       (.I0(\state[2]_i_4 ),
+        .I1(\state[2]_i_4_0 ),
+        .I2(\state[2]_i_4_1 ),
+        .I3(\state[2]_i_4_2 ),
+        .I4(\state[2]_i_4_3 ),
+        .I5(\state[2]_i_4_4 ),
         .O(\count_reg[3] ));
   LUT4 #(
     .INIT(16'hFFFE)) 
     result_ready_i_5
-       (.I0(result_ready_i_2_5),
-        .I1(result_ready_i_2_6),
-        .I2(result_ready_i_2_7),
-        .I3(result_ready_i_2_8),
-        .O(\count_reg[10] ));
+       (.I0(\state[2]_i_4_5 ),
+        .I1(\state[2]_i_4_6 ),
+        .I2(\state[2]_i_4_7 ),
+        .I3(\state[2]_i_4_8 ),
+        .O(\count_reg[13] ));
   FDRE #(
     .INIT(1'b0)) 
     sload_reg_reg
        (.C(axis_aclk),
         .CE(1'b1),
-        .D(adder_out_reg_i_2_n_0),
+        .D(adder_out_reg_i_10_n_0),
         .Q(sload_reg),
         .R(1'b0));
 endmodule
@@ -431,9 +536,9 @@ module matmul_0_matmul_manager
     O,
     result_ready_reg_0,
     s00_axis_tready,
-    m00_axis_tlast,
     addra,
     ena,
+    m00_axis_tlast,
     m00_axis_tdata,
     axis_aclk,
     Q,
@@ -452,9 +557,9 @@ module matmul_0_matmul_manager
   output [0:0]O;
   output result_ready_reg_0;
   output s00_axis_tready;
-  output m00_axis_tlast;
   output [11:0]addra;
   output ena;
+  output m00_axis_tlast;
   output [31:0]m00_axis_tdata;
   input axis_aclk;
   input [14:0]Q;
@@ -467,7 +572,7 @@ module matmul_0_matmul_manager
   input m00_axis_tready;
   input s00_axis_tvalid;
   input s00_axis_tlast;
-  input [7:0]douta;
+  input [31:0]douta;
   input [7:0]s00_axis_tdata;
 
   wire [0:0]O;
@@ -544,7 +649,7 @@ module matmul_0_matmul_manager
   wire \count_reg_n_0_[7] ;
   wire \count_reg_n_0_[8] ;
   wire \count_reg_n_0_[9] ;
-  wire [7:0]douta;
+  wire [31:0]douta;
   wire ena;
   wire first_done0;
   wire [2:0]first_done0_carry__0_i_2_0;
@@ -585,6 +690,7 @@ module matmul_0_matmul_manager
   wire minusOp_carry_n_1;
   wire minusOp_carry_n_2;
   wire minusOp_carry_n_3;
+  wire \output_reg[31]_i_2_n_0 ;
   wire [11:1]plusOp;
   wire plusOp_carry__0_n_0;
   wire plusOp_carry__0_n_1;
@@ -608,20 +714,11 @@ module matmul_0_matmul_manager
   wire \state[0]_i_1_n_0 ;
   wire \state[0]_i_2_n_0 ;
   wire \state[1]_i_1_n_0 ;
-  wire \state[1]_i_2_n_0 ;
-  wire \state[1]_i_3_n_0 ;
-  wire \state[1]_i_4_n_0 ;
-  wire \state[1]_i_5_n_0 ;
-  wire \state[1]_i_6_n_0 ;
-  wire \state[1]_i_7_n_0 ;
   wire \state[2]_i_1_n_0 ;
   wire \state[2]_i_2_n_0 ;
   wire \state[2]_i_3_n_0 ;
   wire \state[2]_i_4_n_0 ;
   wire \state[2]_i_5_n_0 ;
-  wire \state[2]_i_6_n_0 ;
-  wire \state[2]_i_7_n_0 ;
-  wire \state[2]_i_8_n_0 ;
   wire \state_reg_n_0_[0] ;
   wire \state_reg_n_0_[1] ;
   wire \state_reg_n_0_[2] ;
@@ -635,115 +732,113 @@ module matmul_0_matmul_manager
   wire [3:3]NLW_plusOp_carry__1_O_UNCONNECTED;
 
   LUT5 #(
-    .INIT(32'h00005514)) 
+    .INIT(32'h00004554)) 
     \addra[0]_INST_0 
        (.I0(first_done0),
-        .I1(\state_reg_n_0_[0] ),
+        .I1(\state_reg_n_0_[1] ),
         .I2(\state_reg_n_0_[2] ),
-        .I3(\state_reg_n_0_[1] ),
+        .I3(\state_reg_n_0_[0] ),
         .I4(\count_reg_n_0_[0] ),
         .O(addra[0]));
-  (* SOFT_HLUTNM = "soft_lutpair5" *) 
   LUT5 #(
-    .INIT(32'h22220220)) 
+    .INIT(32'h20222220)) 
     \addra[10]_INST_0 
        (.I0(plusOp[10]),
         .I1(first_done0),
-        .I2(\state_reg_n_0_[0] ),
+        .I2(\state_reg_n_0_[1] ),
         .I3(\state_reg_n_0_[2] ),
-        .I4(\state_reg_n_0_[1] ),
+        .I4(\state_reg_n_0_[0] ),
         .O(addra[10]));
   (* SOFT_HLUTNM = "soft_lutpair4" *) 
   LUT5 #(
-    .INIT(32'h22220220)) 
+    .INIT(32'h20222220)) 
     \addra[11]_INST_0 
        (.I0(plusOp[11]),
         .I1(first_done0),
-        .I2(\state_reg_n_0_[0] ),
+        .I2(\state_reg_n_0_[1] ),
         .I3(\state_reg_n_0_[2] ),
-        .I4(\state_reg_n_0_[1] ),
+        .I4(\state_reg_n_0_[0] ),
         .O(addra[11]));
   LUT5 #(
-    .INIT(32'h22220220)) 
+    .INIT(32'h20222220)) 
     \addra[1]_INST_0 
        (.I0(plusOp[1]),
         .I1(first_done0),
-        .I2(\state_reg_n_0_[0] ),
+        .I2(\state_reg_n_0_[1] ),
         .I3(\state_reg_n_0_[2] ),
-        .I4(\state_reg_n_0_[1] ),
+        .I4(\state_reg_n_0_[0] ),
         .O(addra[1]));
   LUT5 #(
-    .INIT(32'h22220220)) 
+    .INIT(32'h20222220)) 
     \addra[2]_INST_0 
        (.I0(plusOp[2]),
         .I1(first_done0),
-        .I2(\state_reg_n_0_[0] ),
+        .I2(\state_reg_n_0_[1] ),
         .I3(\state_reg_n_0_[2] ),
-        .I4(\state_reg_n_0_[1] ),
+        .I4(\state_reg_n_0_[0] ),
         .O(addra[2]));
   LUT5 #(
-    .INIT(32'h22220220)) 
+    .INIT(32'h20222220)) 
     \addra[3]_INST_0 
        (.I0(plusOp[3]),
         .I1(first_done0),
-        .I2(\state_reg_n_0_[0] ),
+        .I2(\state_reg_n_0_[1] ),
         .I3(\state_reg_n_0_[2] ),
-        .I4(\state_reg_n_0_[1] ),
+        .I4(\state_reg_n_0_[0] ),
         .O(addra[3]));
   LUT5 #(
-    .INIT(32'h22220220)) 
+    .INIT(32'h20222220)) 
     \addra[4]_INST_0 
        (.I0(plusOp[4]),
         .I1(first_done0),
-        .I2(\state_reg_n_0_[0] ),
+        .I2(\state_reg_n_0_[1] ),
         .I3(\state_reg_n_0_[2] ),
-        .I4(\state_reg_n_0_[1] ),
+        .I4(\state_reg_n_0_[0] ),
         .O(addra[4]));
   LUT5 #(
-    .INIT(32'h22220220)) 
+    .INIT(32'h20222220)) 
     \addra[5]_INST_0 
        (.I0(plusOp[5]),
         .I1(first_done0),
-        .I2(\state_reg_n_0_[0] ),
+        .I2(\state_reg_n_0_[1] ),
         .I3(\state_reg_n_0_[2] ),
-        .I4(\state_reg_n_0_[1] ),
+        .I4(\state_reg_n_0_[0] ),
         .O(addra[5]));
   LUT5 #(
-    .INIT(32'h22220220)) 
+    .INIT(32'h20222220)) 
     \addra[6]_INST_0 
        (.I0(plusOp[6]),
         .I1(first_done0),
-        .I2(\state_reg_n_0_[0] ),
+        .I2(\state_reg_n_0_[1] ),
         .I3(\state_reg_n_0_[2] ),
-        .I4(\state_reg_n_0_[1] ),
+        .I4(\state_reg_n_0_[0] ),
         .O(addra[6]));
   LUT5 #(
-    .INIT(32'h22220220)) 
+    .INIT(32'h20222220)) 
     \addra[7]_INST_0 
        (.I0(plusOp[7]),
         .I1(first_done0),
-        .I2(\state_reg_n_0_[0] ),
+        .I2(\state_reg_n_0_[1] ),
         .I3(\state_reg_n_0_[2] ),
-        .I4(\state_reg_n_0_[1] ),
+        .I4(\state_reg_n_0_[0] ),
         .O(addra[7]));
   LUT5 #(
-    .INIT(32'h22220220)) 
+    .INIT(32'h20222220)) 
     \addra[8]_INST_0 
        (.I0(plusOp[8]),
         .I1(first_done0),
-        .I2(\state_reg_n_0_[0] ),
+        .I2(\state_reg_n_0_[1] ),
         .I3(\state_reg_n_0_[2] ),
-        .I4(\state_reg_n_0_[1] ),
+        .I4(\state_reg_n_0_[0] ),
         .O(addra[8]));
-  (* SOFT_HLUTNM = "soft_lutpair6" *) 
   LUT5 #(
-    .INIT(32'h22220220)) 
+    .INIT(32'h20222220)) 
     \addra[9]_INST_0 
        (.I0(plusOp[9]),
         .I1(first_done0),
-        .I2(\state_reg_n_0_[0] ),
+        .I2(\state_reg_n_0_[1] ),
         .I3(\state_reg_n_0_[2] ),
-        .I4(\state_reg_n_0_[1] ),
+        .I4(\state_reg_n_0_[0] ),
         .O(addra[9]));
   LUT1 #(
     .INIT(2'h1)) 
@@ -761,166 +856,166 @@ module matmul_0_matmul_manager
         .I5(m00_axis_tready),
         .O(\count[0]_i_2_n_0 ));
   LUT6 #(
-    .INIT(64'h0200020002300200)) 
+    .INIT(64'h00003000A0A00000)) 
     \count[0]_i_4 
        (.I0(result_ready_reg_0),
-        .I1(macc_n_1),
-        .I2(\count_reg_n_0_[1] ),
-        .I3(\count_reg_n_0_[0] ),
-        .I4(first_done_reg_n_0),
-        .I5(s00_axis_tready),
+        .I1(s00_axis_tready),
+        .I2(macc_n_1),
+        .I3(first_done_reg_n_0),
+        .I4(\count_reg_n_0_[0] ),
+        .I5(\count_reg_n_0_[1] ),
         .O(\count[0]_i_4_n_0 ));
   LUT4 #(
-    .INIT(16'h00BE)) 
+    .INIT(16'h00F6)) 
     \count[0]_i_5 
-       (.I0(\state_reg_n_0_[1] ),
+       (.I0(\state_reg_n_0_[0] ),
         .I1(\state_reg_n_0_[2] ),
-        .I2(\state_reg_n_0_[0] ),
+        .I2(\state_reg_n_0_[1] ),
         .I3(first_done0),
         .O(\count[0]_i_5_n_0 ));
   LUT5 #(
-    .INIT(32'h22220220)) 
+    .INIT(32'h20222220)) 
     \count[0]_i_6 
        (.I0(\count_reg_n_0_[3] ),
         .I1(first_done0),
-        .I2(\state_reg_n_0_[0] ),
+        .I2(\state_reg_n_0_[1] ),
         .I3(\state_reg_n_0_[2] ),
-        .I4(\state_reg_n_0_[1] ),
+        .I4(\state_reg_n_0_[0] ),
         .O(\count[0]_i_6_n_0 ));
   LUT5 #(
-    .INIT(32'h22220220)) 
+    .INIT(32'h20222220)) 
     \count[0]_i_7 
        (.I0(\count_reg_n_0_[2] ),
         .I1(first_done0),
-        .I2(\state_reg_n_0_[0] ),
+        .I2(\state_reg_n_0_[1] ),
         .I3(\state_reg_n_0_[2] ),
-        .I4(\state_reg_n_0_[1] ),
+        .I4(\state_reg_n_0_[0] ),
         .O(\count[0]_i_7_n_0 ));
   LUT5 #(
-    .INIT(32'h22220220)) 
+    .INIT(32'h20222220)) 
     \count[0]_i_8 
        (.I0(\count_reg_n_0_[1] ),
         .I1(first_done0),
-        .I2(\state_reg_n_0_[0] ),
+        .I2(\state_reg_n_0_[1] ),
         .I3(\state_reg_n_0_[2] ),
-        .I4(\state_reg_n_0_[1] ),
+        .I4(\state_reg_n_0_[0] ),
         .O(\count[0]_i_8_n_0 ));
   LUT5 #(
-    .INIT(32'h11110110)) 
+    .INIT(32'h10111110)) 
     \count[0]_i_9 
        (.I0(\count_reg_n_0_[0] ),
         .I1(first_done0),
-        .I2(\state_reg_n_0_[0] ),
+        .I2(\state_reg_n_0_[1] ),
         .I3(\state_reg_n_0_[2] ),
-        .I4(\state_reg_n_0_[1] ),
+        .I4(\state_reg_n_0_[0] ),
         .O(\count[0]_i_9_n_0 ));
   LUT5 #(
-    .INIT(32'h22220220)) 
+    .INIT(32'h20222220)) 
     \count[12]_i_2 
        (.I0(\count_reg[15]_0 ),
         .I1(first_done0),
-        .I2(\state_reg_n_0_[0] ),
+        .I2(\state_reg_n_0_[1] ),
         .I3(\state_reg_n_0_[2] ),
-        .I4(\state_reg_n_0_[1] ),
+        .I4(\state_reg_n_0_[0] ),
         .O(\count[12]_i_2_n_0 ));
   LUT5 #(
-    .INIT(32'h22220220)) 
+    .INIT(32'h20222220)) 
     \count[12]_i_3 
        (.I0(\count_reg_n_0_[14] ),
         .I1(first_done0),
-        .I2(\state_reg_n_0_[0] ),
+        .I2(\state_reg_n_0_[1] ),
         .I3(\state_reg_n_0_[2] ),
-        .I4(\state_reg_n_0_[1] ),
+        .I4(\state_reg_n_0_[0] ),
         .O(\count[12]_i_3_n_0 ));
   LUT5 #(
-    .INIT(32'h55140000)) 
+    .INIT(32'h45540000)) 
     \count[12]_i_4 
        (.I0(first_done0),
-        .I1(\state_reg_n_0_[0] ),
+        .I1(\state_reg_n_0_[1] ),
         .I2(\state_reg_n_0_[2] ),
-        .I3(\state_reg_n_0_[1] ),
+        .I3(\state_reg_n_0_[0] ),
         .I4(\count_reg_n_0_[13] ),
         .O(\count[12]_i_4_n_0 ));
   LUT5 #(
-    .INIT(32'h22220220)) 
+    .INIT(32'h20222220)) 
     \count[12]_i_5 
        (.I0(\count_reg_n_0_[12] ),
         .I1(first_done0),
-        .I2(\state_reg_n_0_[0] ),
+        .I2(\state_reg_n_0_[1] ),
         .I3(\state_reg_n_0_[2] ),
-        .I4(\state_reg_n_0_[1] ),
+        .I4(\state_reg_n_0_[0] ),
         .O(\count[12]_i_5_n_0 ));
   LUT5 #(
-    .INIT(32'h55140000)) 
+    .INIT(32'h45540000)) 
     \count[4]_i_2 
        (.I0(first_done0),
-        .I1(\state_reg_n_0_[0] ),
+        .I1(\state_reg_n_0_[1] ),
         .I2(\state_reg_n_0_[2] ),
-        .I3(\state_reg_n_0_[1] ),
+        .I3(\state_reg_n_0_[0] ),
         .I4(\count_reg_n_0_[7] ),
         .O(\count[4]_i_2_n_0 ));
   LUT5 #(
-    .INIT(32'h22220220)) 
+    .INIT(32'h20222220)) 
     \count[4]_i_3 
        (.I0(\count_reg_n_0_[6] ),
         .I1(first_done0),
-        .I2(\state_reg_n_0_[0] ),
+        .I2(\state_reg_n_0_[1] ),
         .I3(\state_reg_n_0_[2] ),
-        .I4(\state_reg_n_0_[1] ),
+        .I4(\state_reg_n_0_[0] ),
         .O(\count[4]_i_3_n_0 ));
   LUT5 #(
-    .INIT(32'h22220220)) 
+    .INIT(32'h20222220)) 
     \count[4]_i_4 
        (.I0(\count_reg_n_0_[5] ),
         .I1(first_done0),
-        .I2(\state_reg_n_0_[0] ),
+        .I2(\state_reg_n_0_[1] ),
         .I3(\state_reg_n_0_[2] ),
-        .I4(\state_reg_n_0_[1] ),
+        .I4(\state_reg_n_0_[0] ),
         .O(\count[4]_i_4_n_0 ));
   LUT5 #(
-    .INIT(32'h55140000)) 
+    .INIT(32'h45540000)) 
     \count[4]_i_5 
        (.I0(first_done0),
-        .I1(\state_reg_n_0_[0] ),
+        .I1(\state_reg_n_0_[1] ),
         .I2(\state_reg_n_0_[2] ),
-        .I3(\state_reg_n_0_[1] ),
+        .I3(\state_reg_n_0_[0] ),
         .I4(\count_reg_n_0_[4] ),
         .O(\count[4]_i_5_n_0 ));
   LUT5 #(
-    .INIT(32'h22220220)) 
+    .INIT(32'h20222220)) 
     \count[8]_i_2 
        (.I0(\count_reg_n_0_[11] ),
         .I1(first_done0),
-        .I2(\state_reg_n_0_[0] ),
+        .I2(\state_reg_n_0_[1] ),
         .I3(\state_reg_n_0_[2] ),
-        .I4(\state_reg_n_0_[1] ),
+        .I4(\state_reg_n_0_[0] ),
         .O(\count[8]_i_2_n_0 ));
   LUT5 #(
-    .INIT(32'h55140000)) 
+    .INIT(32'h45540000)) 
     \count[8]_i_3 
        (.I0(first_done0),
-        .I1(\state_reg_n_0_[0] ),
+        .I1(\state_reg_n_0_[1] ),
         .I2(\state_reg_n_0_[2] ),
-        .I3(\state_reg_n_0_[1] ),
+        .I3(\state_reg_n_0_[0] ),
         .I4(\count_reg_n_0_[10] ),
         .O(\count[8]_i_3_n_0 ));
   LUT5 #(
-    .INIT(32'h22220220)) 
+    .INIT(32'h20222220)) 
     \count[8]_i_4 
        (.I0(\count_reg_n_0_[9] ),
         .I1(first_done0),
-        .I2(\state_reg_n_0_[0] ),
+        .I2(\state_reg_n_0_[1] ),
         .I3(\state_reg_n_0_[2] ),
-        .I4(\state_reg_n_0_[1] ),
+        .I4(\state_reg_n_0_[0] ),
         .O(\count[8]_i_4_n_0 ));
   LUT5 #(
-    .INIT(32'h22220220)) 
+    .INIT(32'h20222220)) 
     \count[8]_i_5 
        (.I0(\count_reg_n_0_[8] ),
         .I1(first_done0),
-        .I2(\state_reg_n_0_[0] ),
+        .I2(\state_reg_n_0_[1] ),
         .I3(\state_reg_n_0_[2] ),
-        .I4(\state_reg_n_0_[1] ),
+        .I4(\state_reg_n_0_[0] ),
         .O(\count[8]_i_5_n_0 ));
   FDRE #(
     .INIT(1'b0)) 
@@ -1082,6 +1177,7 @@ module matmul_0_matmul_manager
         .D(\count_reg[8]_i_1_n_6 ),
         .Q(\count_reg_n_0_[9] ),
         .R(\count[0]_i_1_n_0 ));
+  (* SOFT_HLUTNM = "soft_lutpair2" *) 
   LUT4 #(
     .INIT(16'hAAAB)) 
     ena_INST_0
@@ -1172,44 +1268,44 @@ module matmul_0_matmul_manager
         .D(first_done_i_1_n_0),
         .Q(first_done_reg_n_0),
         .R(1'b0));
-  (* SOFT_HLUTNM = "soft_lutpair5" *) 
+  (* SOFT_HLUTNM = "soft_lutpair4" *) 
   LUT3 #(
-    .INIT(8'h40)) 
+    .INIT(8'h08)) 
     m00_axis_tlast_INST_0
-       (.I0(\state_reg_n_0_[1] ),
+       (.I0(\state_reg_n_0_[0] ),
         .I1(\state_reg_n_0_[2] ),
-        .I2(\state_reg_n_0_[0] ),
+        .I2(\state_reg_n_0_[1] ),
         .O(m00_axis_tlast));
   matmul_0_macc_dsp macc
        (.accum_out(accum_out),
         .adder_out_reg_0(\state_reg_n_0_[0] ),
         .adder_out_reg_1(\state_reg_n_0_[2] ),
         .adder_out_reg_2(\state_reg_n_0_[1] ),
-        .adder_out_reg_3(\count_reg_n_0_[14] ),
-        .adder_out_reg_4(\count_reg_n_0_[13] ),
-        .adder_out_reg_5(\count_reg[15]_0 ),
-        .adder_out_reg_6(\count_reg_n_0_[12] ),
-        .adder_out_reg_7(first_done_reg_n_0),
-        .adder_out_reg_8(\count_reg_n_0_[0] ),
-        .adder_out_reg_9(\count_reg_n_0_[1] ),
+        .adder_out_reg_3(\count_reg_n_0_[1] ),
+        .adder_out_reg_4(\count_reg_n_0_[0] ),
+        .adder_out_reg_5(\count_reg_n_0_[11] ),
+        .adder_out_reg_6(\count_reg_n_0_[8] ),
+        .adder_out_reg_7(\count_reg_n_0_[10] ),
+        .adder_out_reg_8(\count_reg_n_0_[9] ),
+        .adder_out_reg_9(first_done_reg_n_0),
         .axis_aclk(axis_aclk),
-        .\count_reg[10] (macc_n_2),
-        .\count_reg[14] (macc_n_1),
+        .\count_reg[11] (macc_n_1),
+        .\count_reg[13] (macc_n_2),
         .\count_reg[3] (macc_n_3),
         .douta(douta),
         .macc_en(macc_en),
-        .result_ready_i_2(\count_reg_n_0_[3] ),
-        .result_ready_i_2_0(\count_reg_n_0_[2] ),
-        .result_ready_i_2_1(\count_reg_n_0_[4] ),
-        .result_ready_i_2_2(\count_reg_n_0_[5] ),
-        .result_ready_i_2_3(\count_reg_n_0_[6] ),
-        .result_ready_i_2_4(\count_reg_n_0_[7] ),
-        .result_ready_i_2_5(\count_reg_n_0_[10] ),
-        .result_ready_i_2_6(\count_reg_n_0_[9] ),
-        .result_ready_i_2_7(\count_reg_n_0_[11] ),
-        .result_ready_i_2_8(\count_reg_n_0_[8] ),
         .s00_axis_tdata(s00_axis_tdata),
-        .s00_axis_tvalid(s00_axis_tvalid));
+        .s00_axis_tvalid(s00_axis_tvalid),
+        .\state[2]_i_4 (\count_reg_n_0_[3] ),
+        .\state[2]_i_4_0 (\count_reg_n_0_[2] ),
+        .\state[2]_i_4_1 (\count_reg_n_0_[6] ),
+        .\state[2]_i_4_2 (\count_reg_n_0_[7] ),
+        .\state[2]_i_4_3 (\count_reg_n_0_[4] ),
+        .\state[2]_i_4_4 (\count_reg_n_0_[5] ),
+        .\state[2]_i_4_5 (\count_reg_n_0_[13] ),
+        .\state[2]_i_4_6 (\count_reg_n_0_[12] ),
+        .\state[2]_i_4_7 (\count_reg[15]_0 ),
+        .\state[2]_i_4_8 (\count_reg_n_0_[14] ));
   (* ADDER_THRESHOLD = "35" *) 
   CARRY4 minusOp_carry
        (.CI(1'b0),
@@ -1242,16 +1338,25 @@ module matmul_0_matmul_manager
         .DI({1'b0,1'b0,Q[14:13]}),
         .O({NLW_minusOp_carry__2_O_UNCONNECTED[3],O,minusOp[14:13]}),
         .S({1'b0,first_done0_carry__0_i_2_0}));
-  LUT6 #(
-    .INIT(64'h0808080000000000)) 
+  LUT5 #(
+    .INIT(32'h00002000)) 
     \output_reg[31]_i_1 
-       (.I0(state1),
-        .I1(\state_reg_n_0_[0] ),
-        .I2(\state_reg_n_0_[2] ),
-        .I3(\state_reg_n_0_[1] ),
-        .I4(s00_axis_tvalid),
-        .I5(axis_aresetn),
+       (.I0(first_done_reg_n_0),
+        .I1(\output_reg[31]_i_2_n_0 ),
+        .I2(macc_n_1),
+        .I3(\count_reg_n_0_[1] ),
+        .I4(\count_reg_n_0_[0] ),
         .O(result_ready0_out));
+  (* SOFT_HLUTNM = "soft_lutpair2" *) 
+  LUT5 #(
+    .INIT(32'hFF57FFFF)) 
+    \output_reg[31]_i_2 
+       (.I0(axis_aresetn),
+        .I1(s00_axis_tvalid),
+        .I2(\state_reg_n_0_[1] ),
+        .I3(\state_reg_n_0_[2] ),
+        .I4(\state_reg_n_0_[0] ),
+        .O(\output_reg[31]_i_2_n_0 ));
   FDRE #(
     .INIT(1'b0)) 
     \output_reg_reg[0] 
@@ -1544,18 +1649,17 @@ module matmul_0_matmul_manager
        (.I0(macc_n_3),
         .I1(result_ready_i_4_n_0),
         .I2(macc_n_2),
-        .I3(\count_reg_n_0_[1] ),
+        .I3(first_done_reg_n_0),
         .I4(\count_reg_n_0_[0] ),
-        .I5(first_done_reg_n_0),
+        .I5(\count_reg_n_0_[1] ),
         .O(state1));
-  (* SOFT_HLUTNM = "soft_lutpair3" *) 
   LUT4 #(
     .INIT(16'hFFFE)) 
     result_ready_i_4
-       (.I0(\count_reg_n_0_[14] ),
-        .I1(\count_reg_n_0_[13] ),
-        .I2(\count_reg[15]_0 ),
-        .I3(\count_reg_n_0_[12] ),
+       (.I0(\count_reg_n_0_[11] ),
+        .I1(\count_reg_n_0_[8] ),
+        .I2(\count_reg_n_0_[10] ),
+        .I3(\count_reg_n_0_[9] ),
         .O(result_ready_i_4_n_0));
   FDRE #(
     .INIT(1'b0)) 
@@ -1565,7 +1669,7 @@ module matmul_0_matmul_manager
         .D(result_ready_i_1_n_0),
         .Q(result_ready_reg_0),
         .R(1'b0));
-  (* SOFT_HLUTNM = "soft_lutpair4" *) 
+  (* SOFT_HLUTNM = "soft_lutpair3" *) 
   LUT3 #(
     .INIT(8'h04)) 
     s00_axis_tready_INST_0
@@ -1584,155 +1688,71 @@ module matmul_0_matmul_manager
         .I5(axis_aresetn),
         .O(\state[0]_i_1_n_0 ));
   LUT5 #(
-    .INIT(32'hFFF7FFFF)) 
+    .INIT(32'hF7FFFFFF)) 
     \state[0]_i_2 
-       (.I0(result_ready_reg_0),
+       (.I0(\state_reg_n_0_[0] ),
         .I1(\count_reg_n_0_[0] ),
         .I2(\count_reg_n_0_[1] ),
-        .I3(macc_n_1),
-        .I4(\state_reg_n_0_[0] ),
+        .I3(result_ready_reg_0),
+        .I4(macc_n_1),
         .O(\state[0]_i_2_n_0 ));
   LUT6 #(
-    .INIT(64'h22622E6200000000)) 
+    .INIT(64'h262226E200000000)) 
     \state[1]_i_1 
        (.I0(\state_reg_n_0_[1] ),
         .I1(\state[2]_i_2_n_0 ),
-        .I2(\state_reg_n_0_[2] ),
-        .I3(\state_reg_n_0_[0] ),
-        .I4(\state[1]_i_2_n_0 ),
+        .I2(\state_reg_n_0_[0] ),
+        .I3(\state_reg_n_0_[2] ),
+        .I4(\state[2]_i_3_n_0 ),
         .I5(axis_aresetn),
         .O(\state[1]_i_1_n_0 ));
-  LUT6 #(
-    .INIT(64'h0202020202FF0000)) 
-    \state[1]_i_2 
-       (.I0(first_done_reg_n_0),
-        .I1(\state[1]_i_3_n_0 ),
-        .I2(\state[1]_i_4_n_0 ),
-        .I3(\state[1]_i_5_n_0 ),
-        .I4(\state_reg_n_0_[1] ),
-        .I5(\state[1]_i_6_n_0 ),
-        .O(\state[1]_i_2_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair2" *) 
   LUT5 #(
-    .INIT(32'hFFFFFFEF)) 
-    \state[1]_i_3 
-       (.I0(\state[2]_i_8_n_0 ),
-        .I1(\count_reg_n_0_[0] ),
-        .I2(\count_reg_n_0_[1] ),
-        .I3(\count_reg_n_0_[2] ),
-        .I4(\count_reg_n_0_[3] ),
-        .O(\state[1]_i_3_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair3" *) 
-  LUT5 #(
-    .INIT(32'hFFFFFFFE)) 
-    \state[1]_i_4 
-       (.I0(\count_reg_n_0_[12] ),
-        .I1(\count_reg[15]_0 ),
-        .I2(\count_reg_n_0_[13] ),
-        .I3(\count_reg_n_0_[14] ),
-        .I4(macc_n_2),
-        .O(\state[1]_i_4_n_0 ));
-  LUT5 #(
-    .INIT(32'hFFFEFFFF)) 
-    \state[1]_i_5 
-       (.I0(\state[2]_i_8_n_0 ),
-        .I1(\state[1]_i_7_n_0 ),
-        .I2(result_ready_i_4_n_0),
-        .I3(macc_n_2),
-        .I4(result_ready_reg_0),
-        .O(\state[1]_i_5_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair6" *) 
-  LUT2 #(
-    .INIT(4'hB)) 
-    \state[1]_i_6 
-       (.I0(\state_reg_n_0_[2] ),
-        .I1(\state_reg_n_0_[0] ),
-        .O(\state[1]_i_6_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair2" *) 
-  LUT4 #(
-    .INIT(16'hFFEF)) 
-    \state[1]_i_7 
-       (.I0(\count_reg_n_0_[3] ),
-        .I1(\count_reg_n_0_[2] ),
-        .I2(\count_reg_n_0_[0] ),
-        .I3(\count_reg_n_0_[1] ),
-        .O(\state[1]_i_7_n_0 ));
-  LUT6 #(
-    .INIT(64'h6222626200000000)) 
+    .INIT(32'h62220000)) 
     \state[2]_i_1 
        (.I0(\state_reg_n_0_[2] ),
         .I1(\state[2]_i_2_n_0 ),
         .I2(\state_reg_n_0_[0] ),
         .I3(\state[2]_i_3_n_0 ),
-        .I4(\state[2]_i_4_n_0 ),
-        .I5(axis_aresetn),
+        .I4(axis_aresetn),
         .O(\state[2]_i_1_n_0 ));
   LUT6 #(
-    .INIT(64'hFFFFFFFFBAFF0000)) 
+    .INIT(64'hFFFFFFFFFFAE0000)) 
     \state[2]_i_2 
        (.I0(s00_axis_tlast),
-        .I1(s00_axis_tready),
-        .I2(state1),
-        .I3(\state[2]_i_5_n_0 ),
+        .I1(state1),
+        .I2(s00_axis_tready),
+        .I3(\state[2]_i_4_n_0 ),
         .I4(macc_en),
-        .I5(\state[2]_i_6_n_0 ),
+        .I5(\state[2]_i_5_n_0 ),
         .O(\state[2]_i_2_n_0 ));
-  LUT6 #(
-    .INIT(64'h0040000000000000)) 
+  (* SOFT_HLUTNM = "soft_lutpair3" *) 
+  LUT5 #(
+    .INIT(32'hAAAAEA22)) 
     \state[2]_i_3 
-       (.I0(\state_reg_n_0_[2] ),
-        .I1(\state_reg_n_0_[1] ),
-        .I2(\state_reg_n_0_[0] ),
-        .I3(\state[2]_i_7_n_0 ),
-        .I4(\count_reg_n_0_[0] ),
-        .I5(result_ready_reg_0),
-        .O(\state[2]_i_3_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair7" *) 
-  LUT4 #(
-    .INIT(16'h04FF)) 
-    \state[2]_i_4 
-       (.I0(\state_reg_n_0_[2] ),
+       (.I0(state1),
         .I1(\state_reg_n_0_[0] ),
-        .I2(\state_reg_n_0_[1] ),
-        .I3(state1),
-        .O(\state[2]_i_4_n_0 ));
+        .I2(\state[2]_i_4_n_0 ),
+        .I3(\state_reg_n_0_[1] ),
+        .I4(\state_reg_n_0_[2] ),
+        .O(\state[2]_i_3_n_0 ));
   LUT6 #(
-    .INIT(64'hFFFEFFFFFFFFFFFF)) 
-    \state[2]_i_5 
-       (.I0(macc_n_2),
+    .INIT(64'h0000010000000000)) 
+    \state[2]_i_4 
+       (.I0(macc_n_3),
         .I1(result_ready_i_4_n_0),
-        .I2(macc_n_3),
-        .I3(\count_reg_n_0_[1] ),
-        .I4(\count_reg_n_0_[0] ),
-        .I5(result_ready_reg_0),
-        .O(\state[2]_i_5_n_0 ));
-  (* SOFT_HLUTNM = "soft_lutpair7" *) 
+        .I2(macc_n_2),
+        .I3(result_ready_reg_0),
+        .I4(\count_reg_n_0_[1] ),
+        .I5(\count_reg_n_0_[0] ),
+        .O(\state[2]_i_4_n_0 ));
   LUT4 #(
     .INIT(16'hF4C5)) 
-    \state[2]_i_6 
+    \state[2]_i_5 
        (.I0(\state_reg_n_0_[0] ),
         .I1(m00_axis_tready),
         .I2(\state_reg_n_0_[2] ),
         .I3(\state_reg_n_0_[1] ),
-        .O(\state[2]_i_6_n_0 ));
-  LUT6 #(
-    .INIT(64'hFFFFFFFFFFFFFFFE)) 
-    \state[2]_i_7 
-       (.I0(\count_reg_n_0_[1] ),
-        .I1(\count_reg_n_0_[3] ),
-        .I2(\count_reg_n_0_[2] ),
-        .I3(\state[2]_i_8_n_0 ),
-        .I4(result_ready_i_4_n_0),
-        .I5(macc_n_2),
-        .O(\state[2]_i_7_n_0 ));
-  LUT4 #(
-    .INIT(16'hFFFE)) 
-    \state[2]_i_8 
-       (.I0(\count_reg_n_0_[7] ),
-        .I1(\count_reg_n_0_[6] ),
-        .I2(\count_reg_n_0_[5] ),
-        .I3(\count_reg_n_0_[4] ),
-        .O(\state[2]_i_8_n_0 ));
+        .O(\state[2]_i_5_n_0 ));
   FDRE #(
     .INIT(1'b0)) 
     \state_reg[0] 
@@ -1762,19 +1782,18 @@ endmodule
 (* ORIG_REF_NAME = "matmul_v1_0" *) 
 module matmul_0_matmul_v1_0
    (s00_axis_tready,
-    result_ready_reg,
-    m00_axis_tlast,
     s00_axi_awready,
     s00_axi_wready,
     s00_axi_arready,
     s00_axi_rdata,
     m00_axis_tdata,
     s00_axi_rvalid,
+    result_ready_reg,
     addra,
     ena,
+    m00_axis_tlast,
     s00_axi_bvalid,
     axis_aclk,
-    douta,
     s00_axis_tdata,
     s00_axi_aclk,
     s00_axi_awaddr,
@@ -1788,23 +1807,23 @@ module matmul_0_matmul_v1_0
     m00_axis_tready,
     s00_axis_tvalid,
     s00_axis_tlast,
+    douta,
     s00_axi_aresetn,
     s00_axi_bready,
     s00_axi_rready);
   output s00_axis_tready;
-  output result_ready_reg;
-  output m00_axis_tlast;
   output s00_axi_awready;
   output s00_axi_wready;
   output s00_axi_arready;
   output [31:0]s00_axi_rdata;
   output [31:0]m00_axis_tdata;
   output s00_axi_rvalid;
+  output result_ready_reg;
   output [11:0]addra;
   output ena;
+  output m00_axis_tlast;
   output s00_axi_bvalid;
   input axis_aclk;
-  input [7:0]douta;
   input [7:0]s00_axis_tdata;
   input s00_axi_aclk;
   input [2:0]s00_axi_awaddr;
@@ -1818,6 +1837,7 @@ module matmul_0_matmul_v1_0
   input m00_axis_tready;
   input s00_axis_tvalid;
   input s00_axis_tlast;
+  input [31:0]douta;
   input s00_axi_aresetn;
   input s00_axi_bready;
   input s00_axi_rready;
@@ -1841,7 +1861,7 @@ module matmul_0_matmul_v1_0
   wire axilite_n_9;
   wire axis_aclk;
   wire axis_aresetn;
-  wire [7:0]douta;
+  wire [31:0]douta;
   wire ena;
   wire [31:0]m00_axis_tdata;
   wire m00_axis_tlast;

@@ -5,8 +5,8 @@ use ieee.numeric_std.all;
 entity matmul_v1_0 is
 	generic (
 		-- Users to add parameters here
-        BRAM_DATA_WIDTH	: integer	:= 8;
-        BRAM_ADDR_WIDTH	: integer	:= 12;
+--        BRAM_DATA_WIDTH	: integer	:= 8;
+    BRAM_ADDR_WIDTH	: integer	:= 12;
 		-- User parameters ends
 		-- Do not modify the parameters beyond this line
 
@@ -25,8 +25,8 @@ entity matmul_v1_0 is
 		-- Users to add ports here
     addra : out std_logic_vector(BRAM_ADDR_WIDTH-1 downto 0);
     clka : out std_logic;
-    dina : out std_logic_vector(BRAM_DATA_WIDTH-1 downto 0);
-    douta : in std_logic_vector(BRAM_DATA_WIDTH-1 downto 0);
+    dina : out std_logic_vector(31 downto 0);
+    douta : in std_logic_vector(31 downto 0);
     ena : out std_logic;
     rsta : out std_logic;
     wea : out std_logic_vector(3 downto 0);
@@ -115,7 +115,6 @@ architecture arch_imp of matmul_v1_0 is
     generic (
       WEIGHT_TDATA_WIDTH	: integer	:= 32;
       OUTPUT_TDATA_WIDTH	: integer	:= 32;
-      BRAM_DATA_WIDTH	: integer	:= 8;
       BRAM_ADDR_WIDTH	: integer	:= 12
     );
     Port (
@@ -136,16 +135,21 @@ architecture arch_imp of matmul_v1_0 is
       m00_axis_tlast	: out std_logic;
       m00_axis_tready	: in std_logic;
 		
-      bram_din: in std_logic_vector(BRAM_DATA_WIDTH-1 downto 0);
+      bram_din: in std_logic_vector(31 downto 0);
       bram_addr: out std_logic_vector(BRAM_ADDR_WIDTH-1 downto 0);
       bram_en: out std_logic
     );
   end component;
 
   signal vec_len : unsigned(15 downto 0) := x"0000";
-  
+--  signal bram_addr : std_logic_vector(BRAM_ADDR_WIDTH-1 downto 0) := (others => '0');
+--  signal bram_8bit : std_logic_vector(7 downto 0) := x"00";
 begin
-
+--bram_8bit <= douta(7 downto 0) when bram_addr(1 downto 0) = "00" else
+--             douta(15 downto 8) when bram_addr(1 downto 0) = "01" else
+--             douta(23 downto 16) when bram_addr(1 downto 0) = "10" else
+--             douta(31 downto 24);
+--addra <= bram_addr;
 -- Instantiation of Axi Bus Interface S00_AXI
 axilite : matmul_v1_0_S00_AXI
 	generic map (
@@ -197,8 +201,8 @@ matmul_inst : matmul_manager
     m00_axis_tlast => m00_axis_tlast,
     m00_axis_tready => m00_axis_tready,
     bram_din => douta,
-	bram_addr => addra,
-	bram_en => ena	
+    bram_addr => addra,
+    bram_en => ena	
   );
 
 m00_axis_tstrb <= (others => '1');
