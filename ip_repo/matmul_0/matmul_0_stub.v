@@ -2,7 +2,7 @@
 // Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 // --------------------------------------------------------------------------------
 // Tool Version: Vivado v.2023.2 (win64) Build 4029153 Fri Oct 13 20:14:34 MDT 2023
-// Date        : Mon Apr  1 23:17:04 2024
+// Date        : Tue Apr  2 19:40:25 2024
 // Host        : DESKTOP-KJ6L8EK running 64-bit major release  (build 9200)
 // Command     : write_verilog -force -mode synth_stub
 //               c:/Users/Administrator/Documents/tinyllm-fpga/ip_repo/matmul_0/matmul_0_stub.v

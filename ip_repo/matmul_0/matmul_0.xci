@@ -3,7 +3,7 @@
   "ip_inst": {
     "xci_name": "matmul_0",
     "component_reference": "xilinx.com:user:matmul:1.0",
-    "ip_revision": "15",
+    "ip_revision": "16",
     "gen_directory": ".",
     "parameters": {
       "component_parameters": {
@@ -38,7 +38,7 @@
       },
       "runtime_parameters": {
         "IPCONTEXT": [ { "value": "IP_Flow" } ],
-        "IPREVISION": [ { "value": "15" } ],
+        "IPREVISION": [ { "value": "16" } ],
         "MANAGED": [ { "value": "TRUE" } ],
         "OUTPUTDIR": [ { "value": "." } ],
         "SELECTEDSIMMODEL": [ { "value": "" } ],

@@ -104,7 +104,7 @@ END COMPONENT;
 
 signal clk, resetn, reset, go: std_logic := '0';
 signal ena, rsta : std_logic;
-signal wea: std_logic_vector(3 downto 0);
+signal wea, web: std_logic_vector(3 downto 0) := (others => '0');
 signal dina : std_logic_vector(31 downto 0);
 signal addra : std_logic_vector(11 downto 0);
 
@@ -137,11 +137,11 @@ blk_mem_inst : blk_mem_dp_32_1024
     dina => dina,
     douta => douta, -- Assuming douta is an output and not used in this context
     rstb => rsta,
-    clkb => '0',
-    enb => '0',
-    web => "0000",
+    clkb => clk,
+    enb => '1',
+    web => web,
     addrb => (others => '0'),
-    dinb => (others => '0'),
+    dinb => x"04030201",
     doutb => open -- Assuming doutb is an output and not used in this context
   );
 	
@@ -197,7 +197,7 @@ begin
 end process;
 
 main_stim: process
-
+variable ident : integer;
 procedure write_axi(constant addr: in integer; constant data: in std_logic_vector(31 downto 0)) is
 begin
       s00_axi_wdata <= data; -- Assign your write data to s_axi_wdata here
@@ -232,27 +232,71 @@ begin
     wait for 20ns;
     wait until rising_edge(clk);
     
-    for i in -32 to -1 loop
+    for i in 0 to 31 loop
+      s00_axis_tvalid <= '1';
+      if (i mod 9) = 0 then
+        ident := 1;
+      else
+        ident := 0;
+      end if; 
+      s00_axis_tdata <= std_logic_vector(to_signed(ident, 8));
+      wait until rising_edge(clk);
       while s00_axis_tready /= '1' loop
         wait until rising_edge(clk);
       end loop;
-      s00_axis_tvalid <= '1';
-      s00_axis_tdata <= std_logic_vector(to_signed(i, 8));
-      wait until rising_edge(clk);
     end loop;
     s00_axis_tvalid <= '0';
     wait for 40ns;
     wait until rising_edge(clk);
-    for i in 0 to 31 loop
+    for i in 32 to 63 loop
       while s00_axis_tready /= '1' loop
         wait until rising_edge(clk);
       end loop;
       s00_axis_tvalid <= '1';
-      s00_axis_tdata <= std_logic_vector(to_signed(i, 8));
-      if i = 31 then
+      
+      if (i mod 9) = 0 then
+        ident := 1;
+      else
+        ident := 0;
+      end if; 
+      s00_axis_tdata <= std_logic_vector(to_signed(ident, 8));
+      
+      if i = 63 then
         s00_axis_tlast <= '1';
       end if;
+      
       wait until rising_edge(clk);
+      while s00_axis_tready /= '1' loop
+        wait until rising_edge(clk);
+      end loop;
+    end loop;
+    s00_axis_tvalid <= '0';
+    s00_axis_tlast <= '0';
+    wait for 100ns;
+    
+    web <= "1111";
+    wait for 40ns;
+    web <= "0000";
+    
+    wait until rising_edge(clk);
+    for i in 0 to 63 loop
+      s00_axis_tvalid <= '1';
+      
+      if (i mod 9) = 0 then
+        ident := 1;
+      else
+        ident := 0;
+      end if; 
+      s00_axis_tdata <= std_logic_vector(to_signed(ident, 8));
+      
+      if i = 63 then
+        s00_axis_tlast <= '1';
+      end if;
+      
+      wait until rising_edge(clk);
+      while s00_axis_tready /= '1' loop
+        wait until rising_edge(clk);
+      end loop;
     end loop;
     s00_axis_tvalid <= '0';
     wait;

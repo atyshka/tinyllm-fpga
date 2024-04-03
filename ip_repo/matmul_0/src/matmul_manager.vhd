@@ -127,7 +127,9 @@ begin
       case state is
         when idle =>
           -- Ready and waiting for VALID
-          state <= active;
+          if s00_axis_tvalid = '1' then
+            state <= active;
+          end if;
         when active | finishing =>
           if macc_en = '1' then
             if s00_axis_tlast = '1' then
