@@ -46,7 +46,7 @@
 -- 
 -- DO NOT MODIFY THIS FILE.
 -- IP VLNV: xilinx.com:user:matmul:1.0
--- IP Revision: 16
+-- IP Revision: 20
 
 -- The following code must appear in the VHDL architecture header.
 

@@ -21,7 +21,7 @@
 
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
-
+use IEEE.std_logic_signed.all;
 -- Uncomment the following library declaration if using
 -- arithmetic functions with Signed or Unsigned values
 use IEEE.NUMERIC_STD.ALL;
@@ -33,7 +33,7 @@ use IEEE.NUMERIC_STD.ALL;
 
 entity matmul_manager is
 	generic (
-		WEIGHT_TDATA_WIDTH	: integer	:= 32;
+		WEIGHT_TDATA_WIDTH	: integer	:= 64;
 		OUTPUT_TDATA_WIDTH	: integer	:= 32;
 		BRAM_ADDR_WIDTH	: integer	:= 12
 	);
@@ -77,9 +77,10 @@ type state_type is (idle, active, blocked, finishing, blocked_finishing, done);
 
 signal state: state_type := idle;
 signal macc_en, first_done, result_ready, clr_acc: std_logic := '0';
-signal acc_out, output_reg: std_logic_vector(OUTPUT_TDATA_WIDTH-1 downto 0) := (others => '0');
+signal acc_out1, acc_out2, acc_out3, acc_out4, output_reg: std_logic_vector(OUTPUT_TDATA_WIDTH-1 downto 0) := (others => '0');
 signal count, next_count: unsigned(15 downto 0) := to_unsigned(0, 16);
-signal bram_8bit : std_logic_vector(7 downto 0) := x"00";
+signal length_div4: unsigned(15 downto 0) := ("00" & length(15 downto 2));
+--signal bram_8bit : std_logic_vector(7 downto 0) := x"00";
 
 --signal fake_bram: unsigned(15 downto 0) := to_unsigned(0, 16);
 
@@ -87,18 +88,42 @@ signal bram_8bit : std_logic_vector(7 downto 0) := x"00";
 
 begin
 
-bram_8bit <= bram_din(7 downto 0) when count(1 downto 0) = "00" else
-             bram_din(15 downto 8) when count(1 downto 0) = "01" else
-             bram_din(23 downto 16) when count(1 downto 0) = "10" else
-             bram_din(31 downto 24);
+--bram_8bit <= bram_din(7 downto 0) when count(1 downto 0) = "00" else
+--            bram_din(15 downto 8) when count(1 downto 0) = "01" else
+--           bram_din(23 downto 16) when count(1 downto 0) = "10" else
+--          bram_din(31 downto 24);
 
-macc: macc_dsp port map(
+macc1: macc_dsp port map(
   clk => s00_axis_aclk,
   ce => macc_en,
   clr_acc => clr_acc,
   a => signed(s00_axis_tdata(7 downto 0)),
-  b => signed(bram_8bit),
-  std_logic_vector(accum_out) => acc_out
+  b => signed(bram_din(7 downto 0)),
+  std_logic_vector(accum_out) => acc_out1
+);
+macc2: macc_dsp port map(
+  clk => s00_axis_aclk,
+  ce => macc_en,
+  clr_acc => clr_acc,
+  a => signed(s00_axis_tdata(15 downto 8)),
+  b => signed(bram_din(15 downto 8)),
+  std_logic_vector(accum_out) => acc_out2
+);
+macc3: macc_dsp port map(
+  clk => s00_axis_aclk,
+  ce => macc_en,
+  clr_acc => clr_acc,
+  a => signed(s00_axis_tdata(23 downto 16)),
+  b => signed(bram_din(23 downto 16)),
+  std_logic_vector(accum_out) => acc_out3
+);
+macc4: macc_dsp port map(
+  clk => s00_axis_aclk,
+  ce => macc_en,
+  clr_acc => clr_acc,
+  a => signed(s00_axis_tdata(31 downto 24)),
+  b => signed(bram_din(31 downto 24)),
+  std_logic_vector(accum_out) => acc_out4
 );
 
 macc_en <= '1' when 
@@ -109,9 +134,10 @@ s00_axis_tready <= '1' when state = active else '0';
 m00_axis_tvalid <= result_ready;
 m00_axis_tdata <= output_reg;
 m00_axis_tlast <= '1' when state = done else '0';
-next_count <= (others => '0') when (state = idle or state = done or count = length-1) else count + 1;
+next_count <= (others => '0') when (state = idle or state = done or count = length_div4-1) else count + 1;
+-- 0000 0000 1111 0000 -> 0000 0000 0011 1100
 bram_en <= '1' when (state = idle or s00_axis_tvalid = '1') else '0';
-bram_addr <= std_logic_vector(next_count(11 downto 0));
+bram_addr <= std_logic_vector(next_count(9 downto 0) & "00");
 
 process (s00_axis_aclk)
 begin
@@ -136,7 +162,7 @@ begin
               state <= finishing;
             end if;
             
-            if count = length - 1 then
+            if count = length_div4 - 1 then
               first_done <= '1';
             end if; 
             
@@ -148,7 +174,7 @@ begin
               end if;
             elsif count = 2 and first_done = '1' then
               result_ready <= '1';
-              output_reg <= acc_out;
+              output_reg <= (acc_out1 + acc_out2 + acc_out3 + acc_out4);
               if state = active then
                 count <= next_count;
               else
