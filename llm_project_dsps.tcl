@@ -38,15 +38,6 @@
 # Check file required for this script exists
 proc checkRequiredFiles { origin_dir} {
   set status true
-  set files [list \
- "[file normalize "$origin_dir/llm_project/llm_project.srcs/utils_1/imports/synth_1/simple_dma_wrapper.dcp"]"\
-  ]
-  foreach ifile $files {
-    if { ![file isfile $ifile] } {
-      puts " Could not find local file $ifile "
-      set status false
-    }
-  }
 
   set files [list \
  "[file normalize "$origin_dir/ip_repo/matmul_0/matmul_0.xci"]"\
@@ -462,14 +453,6 @@ set files [list \
 ]
 add_files -norecurse -fileset $obj $files
 
-# Import local files from the original project
-set files [list \
- [file normalize "${origin_dir}/llm_project/llm_project.srcs/utils_1/imports/synth_1/simple_dma_wrapper.dcp" ]\
-]
-set imported_files ""
-foreach f $files {
-  lappend imported_files [import_files -fileset utils_1 $f]
-}
 
 # Set 'utils_1' fileset file properties for remote files
 set file "$origin_dir/checkpoints/synth_1/simple_dma_wrapper.dcp"
@@ -485,19 +468,6 @@ set_property -name "used_in" -value "synthesis implementation" -objects $file_ob
 set_property -name "used_in_implementation" -value "1" -objects $file_obj
 set_property -name "used_in_synthesis" -value "1" -objects $file_obj
 
-
-# Set 'utils_1' fileset file properties for local files
-set file "synth_1/simple_dma_wrapper.dcp"
-set file_obj [get_files -of_objects [get_filesets utils_1] [list "*$file"]]
-set_property -name "is_enabled" -value "1" -objects $file_obj
-set_property -name "is_global_include" -value "0" -objects $file_obj
-set_property -name "library" -value "xil_defaultlib" -objects $file_obj
-set_property -name "netlist_only" -value "0" -objects $file_obj
-set_property -name "path_mode" -value "RelativeFirst" -objects $file_obj
-set_property -name "scoped_to_cells" -value "" -objects $file_obj
-set_property -name "used_in" -value "synthesis implementation" -objects $file_obj
-set_property -name "used_in_implementation" -value "1" -objects $file_obj
-set_property -name "used_in_synthesis" -value "1" -objects $file_obj
 
 
 # Set 'utils_1' fileset properties
@@ -1467,7 +1437,6 @@ set_property -name "flow" -value "Vivado Synthesis 2023" -objects $obj
 set_property -name "name" -value "synth_1" -objects $obj
 set_property -name "needs_refresh" -value "0" -objects $obj
 set_property -name "srcset" -value "sources_1" -objects $obj
-set_property -name "incremental_checkpoint" -value "$proj_dir/llm_project.srcs/utils_1/imports/synth_1/simple_dma_wrapper.dcp" -objects $obj
 set_property -name "auto_incremental_checkpoint" -value "1" -objects $obj
 set_property -name "rqs_files" -value "" -objects $obj
 set_property -name "auto_rqs.suggestion_run" -value "" -objects $obj
